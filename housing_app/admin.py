@@ -6,7 +6,7 @@ from .models import User
 # User model registration adapted from https://medium.com/@ksarthak4ever/django-custom-user-model-allauth-for-oauth-20c84888c318
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'last_login')}),
+        (None, {'fields': ('email', 'password', 'last_login', 'first_name', 'last_name')}),
         ('Permissions', {'fields': (
             'is_active', 
             'is_staff', 
