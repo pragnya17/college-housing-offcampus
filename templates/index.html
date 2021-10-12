@@ -34,7 +34,13 @@
 <br>
 <div class="container">
     {% bootstrap_messages %}
-    {% block content %}Content{% endblock %}
+    {% block content %}
+      {% if user.is_authenticated %}
+      <p>Welcome, {{ user.first_name }}!</p>
+      {% else %}
+      <p>Sign in to get started!</p>
+      {% endif %}
+    {% endblock %}
 </div>
 <footer>
   <div class="navbar navbar-dark fixed-bottom justify-content-center p-4" style="background-color: rgb(229, 114, 0);">
