@@ -170,4 +170,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
+# Adapted from https://github.com/heroku/django-heroku/issues/39#issuecomment-465187176
+if '/app' in os.environ['HOME']:
+    import django_heroku
+    django_heroku.settings(locals())
