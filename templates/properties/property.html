@@ -1,0 +1,18 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <h1>{{ property.title }}</h1>
+    <p>Description: {{ property.description }}</p>
+    <p>Address: {{property.address}}</p>
+    <ul>
+        <li>Total Price: ${{ property.total_price }}</li>
+        <ul>
+            <li>Rent: ${{ property.rent }}</li>
+            <li>Utilities: ${{ property.utilities }}</li>
+            <li>Insurance: ${{ property.insurance }}</li>
+        </ul>
+    </ul>    
+
+    <a href="{% url 'properties' %}">Back to Listings</a>
+    
+{% endblock %}

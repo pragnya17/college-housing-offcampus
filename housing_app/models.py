@@ -52,3 +52,25 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_absolute_url(self):
         return "/users/%i/" % (self.pk)
+
+class Property(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    rent = models.DecimalField(max_digits=7, decimal_places=2)
+    utilities = models.DecimalField(max_digits=7, decimal_places=2)
+    insurance = models.DecimalField(max_digits=7, decimal_places=2)
+    total_price = models.DecimalField(max_digits=7, decimal_places=2)
+    address = models.CharField(max_length=200)
+
+    def __str__(self):
+      return self.title
+    
+    # reference used: https://stackoverflow.com/questions/2587707/django-fix-admin-plural
+    class Meta:
+      verbose_name_plural = "properties"
+
+#  TODO
+# class Review(models.Model):
+#     property = models.ForeignKey(Property, on_delete=models.CASCADE)
+#     review_text = models.TextField()
+#     upvotes = models.IntegerField(default=0)

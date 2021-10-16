@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <h2>Properties</h2>
+    {% for property in object_list %}
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{property.title}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">${{property.total_price}}</h6>
+                <p class="card-text">{{property.address}}</p>
+                <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
