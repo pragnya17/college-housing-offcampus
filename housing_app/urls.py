@@ -1,4 +1,8 @@
-from django.urls import path, reverse
+from django.urls import include, path
+from django.contrib import admin
 
 app_name = 'housing_app'
-urlpatterns = []
+urlpatterns = [
+    path('properties/', include('properties.urls')),
+    path('admin/', admin.site.urls),
+]
