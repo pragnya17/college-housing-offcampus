@@ -175,7 +175,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Adapted from https://github.com/heroku/django-heroku/issues/39#issuecomment-465187176
 # and https://python-forum.io/thread-34002.html
-
 if '/app' in os.path.expanduser('~'):
     import django_heroku
     django_heroku.settings(locals())

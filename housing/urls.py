@@ -18,10 +18,14 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
 # adapted from https://testdriven.io/blog/django-social-auth/
+from housing_app import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name="index.html"), name='index'),
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view()),
     path('', include('housing_app.urls'))
+    path('properties/', views.PropertiesListView.as_view(template_name="properties/properties.html"), name='properties'),
+    path('properties/<int:pk>/', views.PropertiesDetailView.as_view(template_name="properties/property.html"), name='property')
 ]
