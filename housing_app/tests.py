@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth import get_user, get_user_model
+from .models import Property
 
 class GoogleLoginTest(TestCase):
 
@@ -41,3 +42,19 @@ class GoogleLoginTest(TestCase):
         c = Client()
         c.login(email='test@example.com', password='abcdefg1!')
         self.assertFalse(get_user(c).is_authenticated)
+
+class PropertyModelTests(TestCase):
+    def test___str__(self):
+        # equivalence
+        p1 = Property(title="property 1")
+        self.assertEqual(Property.__str__(p1), 'property 1')
+
+        #boundary 
+        p2 = Property()
+        self.assertEqual(Property.__str__(p2), 'This property has no title')
+
+        #exception
+        with self.assertRaises(AttributeError):
+            Property.__str__(None)
+
+
