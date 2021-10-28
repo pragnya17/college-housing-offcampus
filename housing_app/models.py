@@ -65,7 +65,10 @@ class Property(models.Model):
     amentities = models.TextField(default="")
 
     def __str__(self):
-      return self.title
+      if self.title == '':
+        return 'This property has no title'
+      else:
+        return self.title
     
     # reference used: https://stackoverflow.com/questions/2587707/django-fix-admin-plural
     class Meta:
