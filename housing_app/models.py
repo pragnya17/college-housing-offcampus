@@ -61,6 +61,8 @@ class Property(models.Model):
     insurance = models.DecimalField(max_digits=7, decimal_places=2)
     total_price = models.DecimalField(max_digits=7, decimal_places=2)
     address = models.CharField(max_length=200)
+    services = models.TextField(default="")
+    amentities = models.TextField(default="")
 
     def __str__(self):
       return self.title

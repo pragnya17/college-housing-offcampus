@@ -11,7 +11,13 @@
             <li>Utilities: ${{ property.utilities }}</li>
             <li>Insurance: ${{ property.insurance }}</li>
         </ul>
-    </ul>    
+    </ul>
+    <ul>
+        Services: {{ property.services }}
+    </ul>
+    <ul>
+        Amentities: {{ property.amentities }}
+    </ul>
 
     <a href="{% url 'properties' %}">Back to Listings</a>
     
