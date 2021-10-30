@@ -5,12 +5,10 @@
     <p>Description: {{ property.description }}</p>
     <p>Address: {{property.address}}</p>
     <ul>
-        <li>Total Price: ${{ property.total_price }}</li>
-        <ul>
-            <li>Rent: ${{ property.rent }}</li>
-            <li>Utilities: ${{ property.utilities }}</li>
-            <li>Insurance: ${{ property.insurance }}</li>
-        </ul>
+        Total Price: ${{ property.total_price }}
+    </ul>
+    <ul>
+        Rooms Available: {{ property.rooms}}
     </ul>
     <ul>
         Services: {{ property.services }}

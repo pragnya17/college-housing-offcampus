@@ -56,10 +56,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Property(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    rent = models.DecimalField(max_digits=7, decimal_places=2)
-    utilities = models.DecimalField(max_digits=7, decimal_places=2)
-    insurance = models.DecimalField(max_digits=7, decimal_places=2)
     total_price = models.DecimalField(max_digits=7, decimal_places=2)
+    rooms = models.TextField(default="")
     address = models.CharField(max_length=200)
     services = models.TextField(default="")
     amentities = models.TextField(default="")
