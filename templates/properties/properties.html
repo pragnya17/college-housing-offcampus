@@ -7,8 +7,10 @@
             <div class="card-body">
                 <h5 class="card-title">{{property.title}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">${{property.total_price}}</h6>
-                <p class="card-text">{{property.address}}</p>
-                <p class="card-text">Distance: {{property.distance}}</p>
+                <text class="card-text">{{property.address}}</text>
+                <text class="card-text">Distance: {{property.distance}} mi</text>
+                <text class="card-text">Parking: {{property.parking}}</text>
+                <text class="card-text">Furnished: {{property.furnished}}</text>
                 <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
             </div>
         </div>

@@ -58,6 +58,8 @@ class Property(models.Model):
     description = models.TextField()
     total_price = models.DecimalField(max_digits=7, decimal_places=2)
     distance = models.DecimalField(max_digits=4, decimal_places=2, default=0)
+    furnished = models.CharField(max_length=3, default="")
+    parking = models.CharField(max_length=3, default="")
     rooms = models.TextField(default="")
     address = models.CharField(max_length=200)
     services = models.TextField(default="")
