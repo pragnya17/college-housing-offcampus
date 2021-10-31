@@ -2,6 +2,7 @@
 
 {% block content %}
     <h2>Properties</h2>
+    <div class="card-deck">
     {% for property in object_list %}
         <div class="card" style="width: 18rem;">
             <div class="card-body">
@@ -15,4 +16,5 @@
             </div>
         </div>
     {% endfor %}
+    </div>
 {% endblock %}
