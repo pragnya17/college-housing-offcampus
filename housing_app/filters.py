@@ -7,15 +7,21 @@ class PropertyFilter(django_filters.FilterSet):
     sorting_options = (
         ('total_price', 'Ascending price'),
         ('-total_price', 'Descending price'),
+        ('-furnished', 'Furnished'),
+        ('furnished', 'Unfurnished'),
+        ('-parking', 'Parking availability'),
     )
 
-    sorting = django_filters.ChoiceFilter(label='Sort by', choices=sorting_options, method='sort_by_option')
+    sort = django_filters.ChoiceFilter(label='Sort by', choices=sorting_options, method='sort_by_option')
 
     class Meta:
         model = Property
+
         fields = {'title': ['icontains'],
-        'total_price': ['gt', 'lt'],
-        # 'rooms': ['extact', 'gt', 'lt'],
+        'total_price': ['lte'],
+        'distance': ['lte'],
+        'bedrooms': ['exact'],
+        'bathrooms': ['exact'],
         }
     
     def sort_by_option(self, queryset, name, value):
