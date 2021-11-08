@@ -16,6 +16,10 @@
     <ul>
         Amenities: {{ property.amenities }}
     </ul>
+    <ul>
+        Floorplan: 
+        <img src="{{ property.floorplan.url }}" width="60%">
+    </ul>
 
     <a href="{% url 'properties' %}">Back to Listings</a>
     
