@@ -2,9 +2,15 @@
 
 {% block content %}
     <h2>Properties</h2>
+
+    <form method="GET">
+        {{ filter.form }}
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
     <!-- Below line sourced from: https://bootstrapcreative.com/pattern/responsive-card-deck-example/ -->
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-    {% for property in object_list %}
+    
+    {% for property in filter.qs %}
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">{{property.title}}</h5>

@@ -1,16 +1,18 @@
 from django.shortcuts import render, HttpResponse
-
-# Create your views here.
 from django.shortcuts import render
 from django.http import HttpResponse
-
 from django.views.generic import ListView, DetailView
 from housing_app.models import Property
+from .filters import PropertyFilter
 
-# Create your views here.
 
 class PropertiesListView(ListView):
     model = Property
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = PropertyFilter(self.request.GET, queryset=self.get_queryset())
+        return context
 
 class PropertiesDetailView(DetailView):
     model = Property
