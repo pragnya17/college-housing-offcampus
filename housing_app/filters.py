@@ -10,6 +10,7 @@ class PropertyFilter(django_filters.FilterSet):
         ('-furnished', 'Furnished'),
         ('furnished', 'Unfurnished'),
         ('-parking', 'Parking availability'),
+        ('distance', 'Distance to grounds (mi)')
     )
 
     sort = django_filters.ChoiceFilter(label='Sort by', choices=sorting_options, method='sort_by_option')
@@ -19,7 +20,6 @@ class PropertyFilter(django_filters.FilterSet):
 
         fields = {'title': ['icontains'],
         'total_price': ['lte'],
-        'distance': ['lte'],
         'bedrooms': ['exact'],
         'bathrooms': ['exact'],
         }
