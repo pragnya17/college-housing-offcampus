@@ -55,7 +55,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Property(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    description = models.CharField(max_length=75)
     total_price = models.DecimalField(max_digits=7, decimal_places=2)
     distance = models.DecimalField(max_digits=4, decimal_places=2, default=0)
     furnished = models.CharField(max_length=3, default="No")
@@ -66,6 +66,7 @@ class Property(models.Model):
     services = models.TextField(default="")
     amenities = models.TextField(default="")
     floorplan = models.ImageField(upload_to='floorplans')
+    picture = models.ImageField(upload_to='pictures', default="")
 
     def __str__(self):
       if self.title == '':
