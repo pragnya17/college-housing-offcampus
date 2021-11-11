@@ -26,6 +26,9 @@
         Distance to Grounds: {{ property.distance }} mi
     </ul>
 
+    Floorplan: 
+    <img src="{{ property.floorplan.url }}" width="60%">
+
     <a href="{% url 'properties' %}">Back to Listings</a>
     
 {% endblock %}

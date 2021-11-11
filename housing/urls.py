@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
 # adapted from https://testdriven.io/blog/django-social-auth/
 from housing_app import views
 
@@ -29,3 +31,7 @@ urlpatterns = [
     path('properties/', views.PropertiesListView.as_view(template_name="properties/properties.html"), name='properties'),
     path('properties/<int:pk>/', views.PropertiesDetailView.as_view(template_name="properties/property.html"), name='property')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                            document_root=settings.MEDIA_ROOT)

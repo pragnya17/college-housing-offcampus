@@ -65,6 +65,7 @@ class Property(models.Model):
     address = models.CharField(max_length=200)
     services = models.TextField(default="")
     amenities = models.TextField(default="")
+    floorplan = models.ImageField(upload_to='floorplans')
 
     def __str__(self):
       if self.title == '':
