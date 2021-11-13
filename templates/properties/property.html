@@ -2,7 +2,8 @@
 
 {% block content %}
     <h1>{{ property.title }}</h1>
-    <p>Description: {{ property.description }}</p>
+    <p>Website: {{ property.description|urlize }}</p>
+    <p><img src="{{ property.picture.url }}" width=40%></p>
     <p>Address: {{property.address}}</p>
     <ul>
         Total Price: ${{ property.total_price }}
