@@ -14,7 +14,7 @@
                 <text class="card-text">Free parking: {{property.parking}}</text><br>
                 <text class="card-text">Furnished: {{property.furnished}}</text><br>
                 {% for review in review_list %}
-                    <text class="card-text">Amenities: {{property.amenities_rating}}</text><br>
+                    <text class="card-text">Amenities: {{review.amenities_rating}}</text><br>
                 {% endfor %}
                 <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
             </div>
