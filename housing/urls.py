@@ -27,5 +27,6 @@ urlpatterns = [
     path('logout', LogoutView.as_view()),
     path('', include('housing_app.urls')),
     path('properties/', views.PropertiesListView.as_view(template_name="properties/properties.html"), name='properties'),
-    path('properties/<int:pk>/', views.PropertiesDetailView.as_view(template_name="properties/property.html"), name='property')
+    path('properties/<int:pk>/', views.PropertiesDetailView.as_view(template_name="properties/property.html"), name='property'),
+    path('properties/review', views.ReviewFormView, name='review')
 ]
