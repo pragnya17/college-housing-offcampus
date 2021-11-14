@@ -1,6 +1,7 @@
 # Adapted from https://medium.com/@ksarthak4ever/django-custom-user-model-allauth-for-oauth-20c84888c318
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
+from django.forms import ModelForm
 from django.utils import timezone
 
 
@@ -65,6 +66,7 @@ class Property(models.Model):
     address = models.CharField(max_length=200)
     services = models.TextField(default="")
     amenities = models.TextField(default="")
+    avg_amenities = models.DecimalField(max_digits=1, decimal_places=0, default=5)
     favorite = models.BooleanField(default=False)
     floorplan = models.ImageField(upload_to='floorplans')
     picture = models.ImageField(upload_to='pictures', default="")
@@ -78,6 +80,19 @@ class Property(models.Model):
     # reference used: https://stackoverflow.com/questions/2587707/django-fix-admin-plural
     class Meta:
       verbose_name_plural = "properties"
+
+
+class Review(models.Model):
+    review_title = models.CharField(max_length=200, default="")
+    amenities_rating = models.DecimalField(max_digits=1, decimal_places=0, default=5)
+    management = models.DecimalField(max_digits=1, decimal_places=0, default=5)
+    noise_level = models.DecimalField(max_digits=1, decimal_places=0, default=5)
+
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['review_title', 'amenities_rating', 'management', 'noise_level']
 
 #  TODO
 # class Review(models.Model):

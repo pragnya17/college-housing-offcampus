@@ -1,0 +1,41 @@
+{% extends "index.html" %}
+<script src="jquery/jquery.js"></script>
+{% load bootstrap5 %}
+{% bootstrap_javascript %}
+
+{% bootstrap_css %}
+{% bootstrap_messages %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <div>
+         Submit ratings for each of the factors from 0-5 (5 being the highest)
+    </div>
+<!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#propertyModal">-->
+<!--        Choose Property to rate-->
+<!--    </button>-->
+
+<!--    <div class="modal fade" id="propertyModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">-->
+<!--      <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--          <div class="modal-header">-->
+<!--            <h5 class="modal-title" id="modalTitle">Choose Property to rate</h5>-->
+<!--            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Clear"></button>-->
+<!--          </div>-->
+<!--          <div class="modal-body">-->
+<!--            body of modal-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    {% bootstrap_form form %}
+    <div class="container-fluid">
+        <button class="btn-outline-primary" button_type="submit" content="OK"> Submit </button>
+        <button class="btn-outline-primary" button_type="reset" content="Reset"> Reset </button>
+    </div>
+    <a href="{% url 'properties' %}">Back to Listings</a>
+</form>
+{% endblock %}
