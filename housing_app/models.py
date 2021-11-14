@@ -55,17 +55,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Property(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField()
-    rent = models.DecimalField(max_digits=7, decimal_places=2, default=0)
+    description = models.CharField(max_length=75)
     total_price = models.DecimalField(max_digits=7, decimal_places=2)
     distance = models.DecimalField(max_digits=4, decimal_places=2, default=0)
-    furnished = models.CharField(max_length=3, default="")
-    parking = models.CharField(max_length=20, default="")
-    rooms = models.TextField(default="")
+    furnished = models.CharField(max_length=3, default="No")
+    parking = models.CharField(max_length=20, default="No")
+    bedrooms = models.IntegerField(default=1)
+    bathrooms = models.IntegerField(default=1)
     address = models.CharField(max_length=200)
     services = models.TextField(default="")
     amenities = models.TextField(default="")
     favorite = models.BooleanField(default=False)
+    floorplan = models.ImageField(upload_to='floorplans')
+    picture = models.ImageField(upload_to='pictures', default="")
 
     def __str__(self):
       if self.title == '':
