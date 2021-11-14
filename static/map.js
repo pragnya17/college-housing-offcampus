@@ -7,7 +7,7 @@ let map;
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 38.034493639911936, lng: -78.50999182771713 },
-    zoom: 8,
+    zoom: 15,
   });
     // Create the search box and link it to the UI element.
   const input = document.getElementById("search-bar");
