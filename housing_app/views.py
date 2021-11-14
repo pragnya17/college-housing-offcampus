@@ -60,7 +60,7 @@ def ReviewFormView(request):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
-            obj = models.Review()
+            obj = Review()
             obj.review_title = form.cleaned_data['review_title']
             obj.amenities = form.cleaned_data['amenities_rating']
             obj.management = form.cleaned_data['management']
