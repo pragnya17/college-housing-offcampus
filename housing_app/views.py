@@ -9,7 +9,7 @@ from housing_app.models import Property
 from . import models
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
-from housing_app.models import Property
+from housing_app.models import ReviewForm
 from .models import *
 from .filters import PropertyFilter
 
@@ -58,7 +58,7 @@ def index(request):
 
 def ReviewFormView(request):
     if request.method == 'POST':
-        form = models.ReviewForm(request.POST)
+        form = ReviewForm(request.POST)
         if form.is_valid():
             obj = models.Review()
             obj.review_title = form.cleaned_data['review_title']
@@ -68,7 +68,7 @@ def ReviewFormView(request):
             obj.save()
             return HttpResponseRedirect('/properties/review')
     else:
-        form = models.ReviewForm()
+        form = ReviewForm()
 
     return render(request, 'properties/review.html', {'form': form})
 
