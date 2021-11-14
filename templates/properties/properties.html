@@ -2,6 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <h2>Properties</h2>
 
     <br>
@@ -22,10 +23,76 @@
                 <text class="card-text">Free parking: {{property.parking}}</text><br>
                 <text class="card-text">Furnished: {{property.furnished}}</text><br>
                 <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
+                <form method = "post">{% csrf_token %}
+                    <input type="hidden" name="property" value={{property.id}}>
+                    <input type="submit" name = "myFav" value = "Favorite" class="button">
+                </form>
             </div>
         </div>
     {% endfor %}
     </div>
+
+
+    <div class="container">
+        <br>
+        <h2>Your Favorite Properties</h2>
+        {% for property in model %}
+        {% if property.favorite == True %}
+            <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{property.title}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">${{property.total_price}}</h6>
+                <text class="card-text">{{property.address}}</text><br>
+                <text class="card-text">Distance: {{property.distance}} mi</text><br>
+                <text class="card-text">Free parking: {{property.parking}}</text><br>
+                <text class="card-text">Furnished: {{property.furnished}}</text><br>
+                <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
+            </div>
+            </div>
+        {% endif %}
+        {% endfor %}
+        </div>
+
+
+    </div>
+    
+    <script>
+        var PropertyListPage = {
+            init: function() {
+            this.$container = $('.property-container');
+            this.render();
+            this.bindEvents();
+        },
+
+        render: function() {
+
+        },
+
+        bindEvents: function() {
+            $('.btn-favorite', this.$container).on('click', function(e) {
+                console.log('Hola');
+                e.preventDefault();
+
+                var self = $(this);
+                var url = $(this).attr('href');
+                $.getJSON(url, function(result) {
+                    if (result.success) {
+                            $('.glyphicon-star', self).toggleClass('active');
+                        }
+                    });
+
+                    return false;
+                });
+            }
+        };
+
+        $(document).ready(function() {
+            PropertyListPage.init();
+        });
+    </script>
+{% endblock %}
+
+
 <!--Property Filter & Sorting Modal -->
 <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
   <div class="modal-dialog">

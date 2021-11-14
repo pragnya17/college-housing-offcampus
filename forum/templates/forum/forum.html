@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <body>
+        <h2 class="jumbotron">
+            Currently active forums: {{count}}
+            <h4>Post here to discuss housing options and to see if anyone is looking for roommates!</h4>
+            <form method="POST" action="{% url 'forum:addInForum' %}">
+                {% csrf_token %}
+            <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Start a new discussion topic</button>
+            </form>
+        </h2>
+            <div class="card-columns" style="margin: 20px;"></div>
+            
+            {%for forum in forums %}
+                <div class="card box container">
+                    <br>
+                    <h5 class="card-title">
+                        <h3>{{forum.topic}}</h3>
+                        <div class="card-body container">
+                                <p>{{forum.description}}</p>
+                            </h5>
+                            <p> By: {{forum.name}}</p>   
+                            <h3>Replies from other users</h3>
+                            {% for discussion in myDiscussions %}
+                                {% if discussion.myForum.topic == forum.topic %}
+                                <div class="card-title"></div>
+                                    <p>{{discussion.discuss}}</p>
+                                    <p>By: {{discussion.name}}</p>
+                                    <hr>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        </body>
+                            
+                            <form method="POST" action="{% url 'forum:addInDiscussion' %}">
+                                {% csrf_token %}
+                            <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Add a reply</button>
+                            </form>
+                        </div>
+                </div>
+            </div>
+            <br>
+            
+            {%endfor%}
+    {% endif %}
+{% endblock %}

@@ -65,6 +65,7 @@ class Property(models.Model):
     address = models.CharField(max_length=200)
     services = models.TextField(default="")
     amenities = models.TextField(default="")
+    favorite = models.BooleanField(default=False)
     floorplan = models.ImageField(upload_to='floorplans')
     picture = models.ImageField(upload_to='pictures', default="")
 
