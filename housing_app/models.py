@@ -56,6 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Property(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
+    rent = models.DecimalField(max_digits=7, decimal_places=2, default=0)
     total_price = models.DecimalField(max_digits=7, decimal_places=2)
     distance = models.DecimalField(max_digits=4, decimal_places=2, default=0)
     furnished = models.CharField(max_length=3, default="")
@@ -64,6 +65,7 @@ class Property(models.Model):
     address = models.CharField(max_length=200)
     services = models.TextField(default="")
     amenities = models.TextField(default="")
+    favorite = models.BooleanField(default=False)
 
     def __str__(self):
       if self.title == '':
