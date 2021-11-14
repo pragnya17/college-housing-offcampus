@@ -2,19 +2,33 @@
 
 {% block content %}
     <h1>{{ property.title }}</h1>
-    <p>Description: {{ property.description }}</p>
+    <p>Website: {{ property.description|urlize }}</p>
+    <p><img src="{{ property.picture.url }}" width=40%></p>
     <p>Address: {{property.address}}</p>
     <ul>
         Total Price: ${{ property.total_price }}
     </ul>
     <ul>
-        Rooms Available: {{ property.rooms}}
+        Bedrooms: {{ property.bedrooms}}
+    </ul>
+    <ul>
+        Bathrooms: {{ property.bathrooms}}
     </ul>
     <ul>
         Services: {{ property.services }}
     </ul>
     <ul>
         Amenities: {{ property.amenities }}
+    </ul>
+    <ul>
+        Parking included: {{ property.parking }}
+    </ul>
+    <ul>
+        Distance to Grounds: {{ property.distance }} mi
+    </ul>
+    <ul>
+        Floorplan: 
+        <img src="{{ property.floorplan.url }}" width="60%">
     </ul>
 
     <a href="{% url 'properties' %}">Back to Listings</a>

@@ -1,21 +1,23 @@
+
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, render, HttpResponse, redirect 
 
 # Create your views here.
 from django.shortcuts import render
 from django.http import HttpResponse
-
 from django.views.generic import ListView, DetailView
 from housing_app.models import Property
 from .models import *
+from .filters import PropertyFilter
 
-# Create your views here.
 
 class PropertiesListView(ListView):
     model = Property
 
-class DashboardListView(ListView):
-    model = Property
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = PropertyFilter(self.request.GET, queryset=self.get_queryset())
+        return context
 
 class PropertiesDetailView(DetailView):
     model = Property
