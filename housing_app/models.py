@@ -79,7 +79,7 @@ class Property(models.Model):
 
 
 class Review(models.Model):
-    property_title = models.CharField(max_length=200, default="")
+    review_title = models.CharField(max_length=200, default="")
     amenities_rating = models.DecimalField(max_digits=1, decimal_places=0, default=5)
     management = models.DecimalField(max_digits=1, decimal_places=0, default=5)
     noise_level = models.DecimalField(max_digits=1, decimal_places=0, default=5)
@@ -88,7 +88,7 @@ class Review(models.Model):
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        fields = ['amenities_rating', 'management', 'noise_level']
+        fields = ['review_title', 'amenities_rating', 'management', 'noise_level']
 
 #  TODO
 # class Review(models.Model):

@@ -29,6 +29,7 @@ def ReviewFormView(request):
         form = models.ReviewForm(request.POST)
         if form.is_valid():
             obj = models.Review()
+            obj.review_title = form.cleaned_data['review_title']
             obj.amenities = form.cleaned_data['amenities_rating']
             obj.management = form.cleaned_data['management']
             obj.noise_level = form.cleaned_data['noise_level']
