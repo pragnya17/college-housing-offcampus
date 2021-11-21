@@ -37,10 +37,6 @@ class PropertiesListView(ListView):
 class PropertiesDetailView(DetailView):
     model = Property
 
-def reviews_list(request):
-    reviews_list = models.Rating.objects.all()
-    return render(request, 'templates', {'reviews_list': reviews_list})
-
 def myDash(request):
     model = Property.objects.all()
     return render(request, "properties/dashboard.html", {'model':model})

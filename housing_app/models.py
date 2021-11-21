@@ -84,7 +84,7 @@ class Property(models.Model):
 # sourced from https://stackoverflow.com/questions/6928692/how-to-express-a-one-to-many-relationship-in-django
 # https://stackoverflow.com/questions/1812806/allow-null-in-foreign-key-to-user-django
 class Rating(models.Model):
-    property = models.ForeignKey(Property, related_name='property', on_delete=models.CASCADE, blank=False, null=False, default=None)
+    property = models.ForeignKey(Property, related_name='ratings', on_delete=models.CASCADE, blank=False, null=False, default=None)
     amenities_rating = models.DecimalField(max_digits=1, decimal_places=0, default=5)
     services_rating = models.DecimalField(max_digits=1, decimal_places=0, default=5)
     noise_level_rating = models.DecimalField(max_digits=1, decimal_places=0, default=5)
