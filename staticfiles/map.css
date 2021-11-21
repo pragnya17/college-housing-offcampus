@@ -1,0 +1,4 @@
+/* Adapted from https://developers.google.com/maps/documentation/javascript/overview#maps_map_simple-css */
+#map {
+  height: 100%;
+}
