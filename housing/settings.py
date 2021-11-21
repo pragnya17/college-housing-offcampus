@@ -28,7 +28,7 @@ if os.path.isfile(dotenv_file):
 SECRET_KEY = 'django-insecure-@h+c_pq#)j^zxo-@bj3g1bzs&e3q4&3dlc05-oera+_4!*!!-*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -166,7 +166,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
