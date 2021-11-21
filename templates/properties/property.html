@@ -19,7 +19,7 @@
         Services: {{ property.services }}
     </ul>
     <ul>
-        test Rating: {% property.ratings.all() %}{% endblock %}
+        test Rating: {{ property.ratings.all() }}
     </ul>
     <ul>
         Amenities: {{ property.amenities }}

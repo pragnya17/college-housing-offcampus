@@ -34,8 +34,9 @@ class PropertiesListView(ListView):
             myProperty.save()
         return render(request, "properties/properties.html", {'model': model})
 
-class PropertiesDetailView(DetailView):
+def PropertiesDetailView(request):
     model = Property
+    return render(request, "properties/property.html", {'model': model})
 
 def myDash(request):
     model = Property.objects.all()
@@ -57,10 +58,9 @@ def RatingFormView(request):
         form = RatingForm(request.POST)
         if form.is_valid():
             obj = RatingForm()
-            obj.review_title = form.cleaned_data['review_title']
-            obj.amenities = form.cleaned_data['amenities_rating']
-            obj.management = form.cleaned_data['management']
-            obj.noise_level = form.cleaned_data['noise_level']
+            obj.amenities_rating = form.cleaned_data['amenities_rating']
+            obj.services_rating = form.cleaned_data['services_rating']
+            obj.noise_level_rating = form.cleaned_data['noise_level_rating']
             obj.save()
             return HttpResponseRedirect('/properties/review')
     else:
