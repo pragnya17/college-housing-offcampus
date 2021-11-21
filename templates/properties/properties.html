@@ -34,30 +34,6 @@
         </div>
     {% endfor %}
     </div>
-
-
-    <div class="container">
-        <br>
-        <h2>Your Favorite Properties</h2>
-        {% for property in model %}
-        {% if property.favorite == True %}
-            <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">{{property.title}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">${{property.total_price}}</h6>
-                <text class="card-text">{{property.address}}</text><br>
-                <text class="card-text">Distance: {{property.distance}} mi</text><br>
-                <text class="card-text">Free parking: {{property.parking}}</text><br>
-                <text class="card-text">Furnished: {{property.furnished}}</text><br>
-                <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
-            </div>
-            </div>
-        {% endif %}
-        {% endfor %}
-        </div>
-
-
-    </div>
     
     <script>
         var PropertyListPage = {
