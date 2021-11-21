@@ -1,3 +1,4 @@
+{% load static %}
 {% extends "index.html" %}
 
 {% block content %}
@@ -18,7 +19,7 @@
         Services: {{ property.services }}
     </ul>
     <ul>
-        test Rating: {% property.ratings.all() %} {% endblock %}
+        test Rating: {% property.ratings.all() %}{% endblock %}
     </ul>
     <ul>
         Amenities: {{ property.amenities }}
