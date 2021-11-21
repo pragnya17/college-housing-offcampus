@@ -9,7 +9,7 @@ from housing_app.models import Property
 from . import models
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
-from housing_app.models import ReviewForm
+from housing_app.models import RatingForm
 from .models import *
 from .filters import PropertyFilter
 
@@ -38,7 +38,7 @@ class PropertiesDetailView(DetailView):
     model = Property
 
 def reviews_list(request):
-    reviews_list = models.Review.objects.all()
+    reviews_list = models.Rating.objects.all()
     return render(request, 'templates', {'reviews_list': reviews_list})
 
 def myDash(request):
@@ -56,11 +56,11 @@ def index(request):
     #     context['review_list'] = Review.objects.all()
     #     return context
 
-def ReviewFormView(request):
+def RatingFormView(request):
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
+        form = RatingForm(request.POST)
         if form.is_valid():
-            obj = Review()
+            obj = RatingForm()
             obj.review_title = form.cleaned_data['review_title']
             obj.amenities = form.cleaned_data['amenities_rating']
             obj.management = form.cleaned_data['management']
@@ -68,7 +68,7 @@ def ReviewFormView(request):
             obj.save()
             return HttpResponseRedirect('/properties/review')
     else:
-        form = ReviewForm()
+        form = RatingForm()
 
-    return render(request, 'properties/review.html', {'form': form})
+    return render(request, 'properties/rating.html', {'form': form})
 
