@@ -3,7 +3,7 @@
 {% block content %}
     <h1>{{ property.title }}</h1>
     <p>Website: {{ property.description|urlize }}</p>
-    <p><img src="{{ property.picture.url }}" width=40%></p>
+    <p><img src="{{ property.picture_file_name }}" width=40%></p>
     <p>Address: {{property.address}}</p>
     <ul>
         Total Price: ${{ property.total_price }}
@@ -28,7 +28,7 @@
     </ul>
     <ul>
         Floorplan: 
-        <img src="{{ property.floorplan.url }}" width="60%">
+        <img src="{{ property.floorplan_file_name }}" width="60%">
     </ul>
 
     <a href="{% url 'properties' %}">Back to Listings</a>

@@ -68,8 +68,8 @@ class Property(models.Model):
     amenities = models.TextField(default="")
     avg_amenities = models.DecimalField(max_digits=1, decimal_places=0, default=5)
     favorite = models.BooleanField(default=False)
-    floorplan = models.ImageField(upload_to='floorplans')
-    picture = models.ImageField(upload_to='pictures', default="")
+    floorplan_file_name = models.CharField(max_length=100, default="/static/floorplans/floorplan.jpg")
+    picture_file_name = models.CharField(max_length=100, default="/static/pictures/sample_house.jpg")
 
     def __str__(self):
       if self.title == '':
