@@ -93,7 +93,7 @@ def RatingFormView(request):
             obj.services_rating = form.cleaned_data['services_rating']
             obj.noise_level_rating = form.cleaned_data['noise_level_rating']
             obj.save()
-            return HttpResponseRedirect('/properties/review')
+            return HttpResponseRedirect('/properties/rating')
     else:
         form = RatingForm()
 
