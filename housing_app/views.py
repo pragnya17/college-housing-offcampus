@@ -34,26 +34,37 @@ class PropertiesListView(ListView):
             myProperty.save()
         return render(request, "properties/properties.html", {'model': model})
 
-def PropertiesDetailView(request, pk):
-    ratings = Property.ratings.all()
-    len_ratings = len(ratings)
-    if len_ratings == 0: # no ratings available yet
-        avg_amenities = -1
-        avg_service = -1
-        avg_noise = -1
-    else:
-        amenities_sum = 0
-        service_sum = 0
-        noise_sum = 0
-        for rating in ratings:
-            amenities_sum += rating.amenities_rating
-            service_sum += rating.services_rating
-            noise_sum += rating.noise_level_rating
-        avg_amenities = amenities_sum/len_ratings
-        avg_service = service_sum/len_ratings
-        avg_noise = noise_sum/len_ratings
-    return render(request, "properties/property.html", {'property': Property, 'avg_amenities': avg_amenities,
-                  'avg_service': avg_service, 'avg_noise': avg_noise})
+# Code sourced from https://stackoverflow.com/questions/51950416/reversemanytoonedescriptor-object-has-no-attribute-all
+class PropertiesDetailView(DetailView):
+    model = Property
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        ratings = self.object.all().ratings
+
+        # get average ratings in each category
+        len_ratings = len(ratings)
+        if len_ratings == 0:  # no ratings available yet
+            avg_amenities = -1
+            avg_service = -1
+            avg_noise = -1
+        else:
+            amenities_sum = 0
+            service_sum = 0
+            noise_sum = 0
+            for rating in ratings:
+                amenities_sum += rating.amenities_rating
+                service_sum += rating.services_rating
+                noise_sum += rating.noise_level_rating
+            avg_amenities = amenities_sum / len_ratings
+            avg_service = service_sum / len_ratings
+            avg_noise = noise_sum / len_ratings
+
+        context['avg_amenities'] = avg_amenities
+        context['avg_service'] = avg_service
+        context['avg_noise'] = avg_noise
+
+        return context
 
 def myDash(request):
     model = Property.objects.all()
