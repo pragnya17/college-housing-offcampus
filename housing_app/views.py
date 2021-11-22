@@ -34,9 +34,8 @@ class PropertiesListView(ListView):
             myProperty.save()
         return render(request, "properties/properties.html", {'model': model})
 
-def PropertiesDetailView(request):
-    model = Property
-    return render(request, "properties/property.html", {'property': model})
+def PropertiesDetailView(request, pk):
+    return render(request, "properties/property.html", {'property': Property})
 
 def myDash(request):
     model = Property.objects.all()
