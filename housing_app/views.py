@@ -36,7 +36,7 @@ class PropertiesListView(ListView):
 
 def PropertiesDetailView(request):
     model = Property
-    return render(request, "properties/property.html", {'model': model})
+    return render(request, "properties/property.html", {'property': model})
 
 def myDash(request):
     model = Property.objects.all()
