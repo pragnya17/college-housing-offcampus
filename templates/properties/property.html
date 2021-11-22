@@ -19,10 +19,16 @@
         Services: {{ property.services }}
     </ul>
     <ul>
-        test Rating: {{ property.ratings.all() }}
+        Average Rating for Services: {{ avg_service }}
     </ul>
     <ul>
         Amenities: {{ property.amenities }}
+    </ul>
+    <ul>
+        Average Rating for Amenities: {{ avg_amenities }}
+    </ul>
+    <ul>
+        Average Rating for Noise Level: {{ avg_noise }}
     </ul>
     <ul>
         Parking included: {{ property.parking }}

@@ -35,7 +35,25 @@ class PropertiesListView(ListView):
         return render(request, "properties/properties.html", {'model': model})
 
 def PropertiesDetailView(request, pk):
-    return render(request, "properties/property.html", {'property': Property})
+    ratings = Property.ratings.all()
+    len_ratings = len(ratings)
+    if len_ratings == 0: # no ratings available yet
+        avg_amenities = -1
+        avg_service = -1
+        avg_noise = -1
+    else:
+        amenities_sum = 0
+        service_sum = 0
+        noise_sum = 0
+        for rating in ratings:
+            amenities_sum += rating.amenities_rating
+            service_sum += rating.services_rating
+            noise_sum += rating.noise_level_rating
+        avg_amenities = amenities_sum/len_ratings
+        avg_service = service_sum/len_ratings
+        avg_noise = noise_sum/len_ratings
+    return render(request, "properties/property.html", {'property': Property, 'avg_amenities': avg_amenities,
+                  'avg_service': avg_service, 'avg_noise': avg_noise})
 
 def myDash(request):
     model = Property.objects.all()
