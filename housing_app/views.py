@@ -88,7 +88,7 @@ def RatingFormView(request):
     if request.method == 'POST':
         form = RatingForm(request.POST)
         if form.is_valid():
-            obj = RatingForm()
+            obj = Rating()
             obj.amenities_rating = form.cleaned_data['amenities_rating']
             obj.services_rating = form.cleaned_data['services_rating']
             obj.noise_level_rating = form.cleaned_data['noise_level_rating']
