@@ -34,6 +34,7 @@ class PropertiesListView(ListView):
             myProperty.save()
         return render(request, "properties/properties.html", {'model': model})
 
+
 # Code sourced from https://stackoverflow.com/questions/51950416/reversemanytoonedescriptor-object-has-no-attribute-all
 class PropertiesDetailView(DetailView):
     model = Property
@@ -66,9 +67,11 @@ class PropertiesDetailView(DetailView):
 
         return context
 
+
 def myDash(request):
     model = Property.objects.all()
-    return render(request, "properties/dashboard.html", {'model':model})
+    return render(request, "properties/dashboard.html", {'model': model})
+
 
 def index(request):
     model = Property.objects.all()

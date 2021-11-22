@@ -24,7 +24,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view()),
-    path('properties/<int:pk>/', views.PropertiesDetailView, name='property'),
+    #path('properties/<int:pk>/', views.PropertiesDetailView, name='property'),
     #path('properties/', views.favorite_property, name = 'properties'),
     #path('dashboard', views.DashboardListView.as_view(template_name="properties/dashboard.html"), name = "dashboard"), 
     path('dashboard', views.myDash, name="dashboard"),
