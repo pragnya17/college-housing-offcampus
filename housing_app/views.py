@@ -41,7 +41,7 @@ class PropertiesDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        ratings = self.object.all().ratings
+        ratings = self.object.ratings.all()
 
         # get average ratings in each category
         len_ratings = len(ratings)
