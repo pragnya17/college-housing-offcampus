@@ -6,83 +6,93 @@
 {% bootstrap_javascript %}
 
 <html>
-<head>
-</head>
+
 
 <body>
-{% block bootstrap5_content %}
-<div id="page-container">
-  <div id="content-wrap">
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(35, 45, 75);">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'index' %}">Off-Grounds Housing</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'properties' %}">Listings</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'map' %}">Map</a>
-        </li>
-        <li class="nav-item">
-          {% if user.is_authenticated %}
-          <button class="btn nav-link" data-bs-toggle="modal" data-bs-target="#signOutModal">Sign Out</a>
-          {% else %}
-          <a class="nav-link" href="{% provider_login_url 'google' %}">Sign In/Register</a>
-          {% endif %}
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<br>
-<br>
-<div class="container">
-    {% bootstrap_messages %}
-    {% block content %}
-      {% if user.is_authenticated %}
-      <h1>Welcome, {{ user.first_name }}!</h1>
+
+  <head>
+  </head>
+  {% block bootstrap5_content %}
+  <div id="page-container">
+    <div id="content-wrap">
+      <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(35, 45, 75);">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'index' %}">Off-Grounds Housing</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{% url 'properties' %}">Listings</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{% url 'map' %}">Map</a>
+              </li>
+              <li class="nav-item">
+                {% if user.is_authenticated %}
+                <button class="btn nav-link" data-bs-toggle="modal" data-bs-target="#signOutModal">Sign Out</a>
+                  {% else %}
+                  <a class="nav-link" href="{% provider_login_url 'google' %}">Sign In/Register</a>
+                  {% endif %}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
       <br>
-      <div class="container">
-        <h2>Your Favorite Properties</h2>
-        {% for property in model %}
-        {% if property.favorite == True %}
-            <div class="card" style="width: 18rem;">
+      <br>
+      <div class="container min-vh-100">
+        {% bootstrap_messages %}
+        {% block content %}
+        {% if user.is_authenticated %}
+        <h1>Welcome, {{ user.first_name }}!</h1>
+        <br>
+        <div class="container">
+          <h2>Your Favorite Properties</h2>
+          {% for property in model %}
+          {% if property.favorite == True %}
+          <div class="card" style="width: 18rem;">
             <div class="card-body">
-                <h5 class="card-title">{{property.title}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">${{property.total_price}}</h6>
-                <text class="card-text">{{property.address}}</text><br>
-                <text class="card-text">Distance: {{property.distance}} mi</text><br>
-                <text class="card-text">Free parking: {{property.parking}}</text><br>
-                <text class="card-text">Furnished: {{property.furnished}}</text><br>
-                <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
+              <h5 class="card-title">{{property.title}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">${{property.total_price}}</h6>
+              <text class="card-text">{{property.address}}</text><br>
+              <text class="card-text">Distance: {{property.distance}} mi</text><br>
+              <text class="card-text">Free parking: {{property.parking}}</text><br>
+              <text class="card-text">Furnished: {{property.furnished}}</text><br>
+              <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
             </div>
-            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        <div>
+          <a href="{% url 'review' %}">Publish a review</a>
+        </div>
+        <!-- End of the dashboard stuff -->
+        {% else %}
+        <h3>Welcome to Off-Grounds Housing!</h3>
+        <!-- <h4>Sign in to get started!</h4> -->
+        <p style="font-size: 1.2em;">Off-grounds Housing is for people looking to find reliable housing in the
+          UVA-Charlorlottesville Area. You can browse through our many housing options and their respective reviews
+          made by authentic indiviuals who have previous, personal experience living in these properties. If you're
+          looking for a specific criteria or place, we have many filtering options and a map feature that helps you
+          find exactly what you need. You can even create an account to favorite and save properties, and post reviews
+          of your own!</p>
         {% endif %}
-        {% endfor %}
+        {% endblock %}
+      </div>
+      <footer style="padding: 80px 0px 0">
+        <div class="navbar navbar-dark navbar-static-bottom justify-content-center p-4"
+          style="background-color: rgb(229, 114, 0); margin-bottom: 0">
+          <p style="color: white;">© 2021 CS 3240 Group B-04. All rights reserved.</p>
+        </div>
     </div>
-    <div>
-      <a href="{% url 'review' %}">Publish a review</a>
-    </div>
-    <!-- End of the dashboard stuff -->
-      {% else %}
-      <h3>Welcome to Off-Grounds Housing!</h3>
-      <!-- <h4>Sign in to get started!</h4> -->
-      <p style="font-size: 1.2em;">Off-grounds Housing is for people looking to find reliable housing in the UVA-Charlorlottesville Area. You can browse through our many housing options and their respective reviews made by authentic indiviuals who have previous, personal experience living in these properties. If you're looking for a specific criteria or place, we have many filtering options and a map feature that helps you find exactly what you need. You can even create an account to favorite and save properties, and post reviews of your own!</p>
-      {% endif %}
-    {% endblock %}
-</div>
-<footer style="padding: 150px 15px 0">
-  <div class="navbar navbar-dark fixed-bottom justify-content-center p-4" style="background-color: rgb(229, 114, 0)">
-    <p style="color: white;">© 2021 CS 3240 Group B-04. All rights reserved.</p>
   </div>
-</div>
-</div>
-</footer>
-{% endblock %}
+  </footer>
+  {% endblock %}
 </body>
 <!-- Modal -->
 <div class="modal fade" id="signOutModal" tabindex="-1" aria-labelledby="signOutModalLabel" aria-hidden="true">
@@ -100,7 +110,7 @@
         <form method="post" action="{% url 'account_logout' %}">
           {% csrf_token %}
           {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
           {% endif %}
           <button type="submit" class="btn btn-danger">Sign Out</button>
         </form>
@@ -108,4 +118,5 @@
     </div>
   </div>
 </div>
+
 </html>
