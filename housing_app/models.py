@@ -64,6 +64,8 @@ class Property(models.Model):
     bedrooms = models.IntegerField(default=1)
     bathrooms = models.IntegerField(default=1)
     address = models.CharField(max_length=200)
+    lat = models.FloatField(default=38.034493639911936)
+    lon = models.FloatField(default=-78.50999182771713)
     services = models.TextField(default="")
     amenities = models.TextField(default="")
     avg_amenities = models.DecimalField(max_digits=1, decimal_places=0, default=5)
