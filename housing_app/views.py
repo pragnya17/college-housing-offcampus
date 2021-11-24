@@ -73,6 +73,10 @@ def myDash(request):
     return render(request, "properties/dashboard.html", {'model': model})
 
 
+def map(request):
+    model = Property.objects.all()
+    return render(request, "map.html", {'model':model})
+
 def index(request):
     model = Property.objects.all()
     return render(request, "index.html", {'model':model})
