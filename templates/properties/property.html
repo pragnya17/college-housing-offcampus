@@ -21,6 +21,27 @@
         Amenities: {{ property.amenities }}
     </ul>
     <ul>
+        {% if avg_service != -1 %}
+            Average Rating for Services: {{ avg_service }}
+        {% else %}
+            No ratings available for Services yet
+        {% endif %}
+    </ul>
+    <ul>
+        {% if avg_amenities != -1 %}
+            Average Rating for Amenities: {{ avg_amenities }}
+        {% else %}
+            No ratings available for Amenities yet
+        {% endif %}
+    </ul>
+    <ul>
+        {% if avg_noise != -1 %}
+            Average Rating for Noise Level: {{ avg_noise }}
+        {% else %}
+            No ratings available for Noise Level yet
+        {% endif %}
+    </ul>
+    <ul>
         Parking included: {{ property.parking }}
     </ul>
     <ul>
@@ -30,6 +51,7 @@
         Floorplan: 
         <img src="{{ property.floorplan_file_name }}" width="60%">
     </ul>
+    <a href="{% url 'rating' %}"><button>Publish a rating</button></a>
 
     <a href="{% url 'properties' %}">Back to Listings</a>
     
