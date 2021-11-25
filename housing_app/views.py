@@ -36,9 +36,12 @@ class PropertiesDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PropertiesDetailView, self).get_context_data(**kwargs)
+
         try:
+            # Sourced from https://www.valentinog.com/blog/detail/
             # get property object's title and find all the matchin ratings for that property
-            ratings = Rating.objects.get(property="The Standard")
+            property_title = Property.objects.get(pk=self.kwargs.get("pk")).title
+            ratings = Rating.objects.filter(property=property_title)
             len_ratings = len(ratings)
             amenities_sum = 0
             service_sum = 0
@@ -57,7 +60,7 @@ class PropertiesDetailView(DetailView):
             avg_service = -1
             avg_noise = -1
 
-        context['title'] = Property.title
+        context['title'] = ratings
         context['avg_amenities'] = avg_amenities
         context['avg_service'] = avg_service
         context['avg_noise'] = avg_noise

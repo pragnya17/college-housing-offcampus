@@ -74,11 +74,11 @@ class Property(models.Model):
     floorplan_file_name = models.CharField(max_length=100, default="/static/floorplans/floorplan.jpg")
     picture_file_name = models.CharField(max_length=100, default="/static/pictures/sample_house.jpg")
 
-    # def __str__(self):
-    #   if self.title == '':
-    #     return 'This property has no title'
-    #   else:
-    #     return self.title
+    def __str__(self):
+      if self.title == '':
+        return 'This property has no title'
+      else:
+        return self.title
     
     # reference used: https://stackoverflow.com/questions/2587707/django-fix-admin-plural
     class Meta:
