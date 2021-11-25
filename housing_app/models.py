@@ -83,7 +83,7 @@ class Property(models.Model):
     
     @classmethod
     def get_property_titles(cls):
-      return cls.objects.values_list('title', flat=True)
+      return cls.objects.all()
     
     # reference used: https://stackoverflow.com/questions/2587707/django-fix-admin-plural
     class Meta:
@@ -108,17 +108,14 @@ class Rating(models.Model):
 
 class RatingForm(forms.Form):
     properties_list = []
-    property = ModelChoiceField(model=Property, widget=RadioSelect)
+    property = ModelChoiceField(queryset=properties_list, widget=RadioSelect)
     amenities_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
     services_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
     noise_level_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        properties_query = Property.get_property_titles()
-        properties_list = []
-        for title in properties_query:
-            properties_list.append((title, title))
+        self.properties_list = Property.get_property_titles()
 
 
 
