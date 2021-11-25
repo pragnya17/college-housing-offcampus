@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('housing_app', '0030_remove_property_avg_amenities'),
+        ('housing_app', '0029_auto_20211123_1820'),
     ]
 
     operations = [

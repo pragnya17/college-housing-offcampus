@@ -69,6 +69,7 @@ class Property(models.Model):
     lat = models.FloatField(default=38.034493639911936)
     lon = models.FloatField(default=-78.50999182771713)
     services = models.TextField(default="")
+    avg_amenities = models.DecimalField(max_digits=1, decimal_places=0, default=5)
     amenities = models.TextField(default="")
     favorite = models.BooleanField(default=False)
     floorplan_file_name = models.CharField(max_length=100, default="/static/floorplans/floorplan.jpg")
