@@ -1,15 +1,10 @@
-from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, render, HttpResponse, redirect 
 
 # Create your views here.
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from housing_app.models import Property
 from . import models
-from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
-from housing_app.models import RatingForm
 from .models import *
 from .filters import PropertyFilter
 
@@ -41,9 +36,9 @@ class PropertiesDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        ratings = self.object.ratings.all()
+        ratings = Rating.objects.get(property=Property.title)
 
-        # get average ratings in each category
+        # get average ratings in each categoryRating
         len_ratings = len(ratings)
         if len_ratings == 0:  # no ratings available yet
             avg_amenities = -1
@@ -93,6 +88,7 @@ def RatingFormView(request):
         form = RatingForm(request.POST)
         if form.is_valid():
             obj = Rating()
+            obj.property = form['property']
             obj.amenities_rating = form.cleaned_data['amenities_rating']
             obj.services_rating = form.cleaned_data['services_rating']
             obj.noise_level_rating = form.cleaned_data['noise_level_rating']

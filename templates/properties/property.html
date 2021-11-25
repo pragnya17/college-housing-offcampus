@@ -21,10 +21,10 @@
         Amenities: {{ property.amenities }}
     </ul>
     <ul>
-        {% if avg_service != -1 %}
-            Average Rating for Services: {{ avg_service }}
-        {% else %}
+        {% if avg_service == -1 %}
             No ratings available for Services yet
+        {% else %}
+            Average Rating for Services: {{ avg_service }}
         {% endif %}
     </ul>
     <ul>
