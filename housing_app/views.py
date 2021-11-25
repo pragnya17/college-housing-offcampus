@@ -38,7 +38,7 @@ class PropertiesDetailView(DetailView):
         context = super(PropertiesDetailView, self).get_context_data(**kwargs)
         try:
             # get property object's title and find all the matchin ratings for that property
-            ratings = Rating.objects.get(property=self.kwargs.get("title"))
+            ratings = Rating.objects.get(property="The Standard")
             len_ratings = len(ratings)
             amenities_sum = 0
             service_sum = 0
