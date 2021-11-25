@@ -1,7 +1,9 @@
 # Adapted from https://medium.com/@ksarthak4ever/django-custom-user-model-allauth-for-oauth-20c84888c318
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
-from django.forms import ModelForm
+from django import forms
+from django.forms import TypedChoiceField, RadioSelect, IntegerField
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 
 
@@ -85,18 +87,34 @@ class Property(models.Model):
 
 # sourced from https://stackoverflow.com/questions/6928692/how-to-express-a-one-to-many-relationship-in-django
 # https://stackoverflow.com/questions/1812806/allow-null-in-foreign-key-to-user-django
+# Validators sourced from: https://stackoverflow.com/questions/33772947/django-set-range-for-integer-model-field-as-constraint
 class Rating(models.Model):
-    property = models.ForeignKey(Property, related_name='ratings', blank=True, null=True,
-                                 on_delete=models.CASCADE, default=None)
-    amenities_rating = models.DecimalField(max_digits=1, decimal_places=0, default=5)
-    services_rating = models.DecimalField(max_digits=1, decimal_places=0, default=5)
-    noise_level_rating = models.DecimalField(max_digits=1, decimal_places=0, default=5)
+    #property = models.ForeignKey(Property, related_name='ratings', blank=True, null=True,
+                                # on_delete=models.CASCADE)
+    property = models.CharField(max_length=200, default="")
+    amenities_rating = models.IntegerField(default=0,
+                                                   validators=[MaxValueValidator(5), MinValueValidator(0)]
+)
+    services_rating = models.IntegerField(default=0,
+                                                  validators=[MaxValueValidator(5), MinValueValidator(0)]
+)
+    noise_level_rating = models.IntegerField(default=0,
+                                                     validators=[MaxValueValidator(5), MinValueValidator(0)]
+                                                     )
+    def __str__(self):
+        return self.property
 
 
-class RatingForm(ModelForm):
-    class Meta:
-        model = Rating
-        fields = ['amenities_rating', 'services_rating', 'noise_level_rating']
+class RatingForm(forms.Form):
+    properties_list = []
+    for each in Property.objects.all():
+        properties_list.append((each.title, each.title))
+    property = TypedChoiceField(choices=properties_list, widget=RadioSelect)
+    amenities_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
+    services_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
+    noise_level_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
+
+
 
 #  TODO
 # class Review(models.Model):

@@ -21,10 +21,10 @@
         Amenities: {{ property.amenities }}
     </ul>
     <ul>
-        {% if avg_service != -1 %}
-            Average Rating for Services: {{ avg_service }}
-        {% else %}
+        {% if avg_service == -1 %}
             No ratings available for Services yet
+        {% else %}
+            Average Rating for Services: {{ avg_service }}
         {% endif %}
     </ul>
     <ul>
@@ -51,7 +51,6 @@
         Floorplan: 
         <img src="{{ property.floorplan_file_name }}" width="60%">
     </ul>
-    <a href="{% url 'rating' %}"><button>Publish a rating</button></a>
 
     <a href="{% url 'properties' %}">Back to Listings</a>
     
