@@ -80,14 +80,15 @@ class Property(models.Model):
       else:
         return self.title
     
+    @classmethod
+    def get_property_titles(cls):
+      return cls.objects.values_list('title', flat=True)
+    
     # reference used: https://stackoverflow.com/questions/2587707/django-fix-admin-plural
     class Meta:
       verbose_name_plural = "properties"
 
 
-# sourced from https://stackoverflow.com/questions/6928692/how-to-express-a-one-to-many-relationship-in-django
-# https://stackoverflow.com/questions/1812806/allow-null-in-foreign-key-to-user-django
-# Validators sourced from: https://stackoverflow.com/questions/33772947/django-set-range-for-integer-model-field-as-constraint
 class Rating(models.Model):
     #property = models.ForeignKey(Property, related_name='ratings', blank=True, null=True,
                                 # on_delete=models.CASCADE)
@@ -104,16 +105,16 @@ class Rating(models.Model):
     def __str__(self):
         return self.property
 
-
 class RatingForm(forms.Form):
     properties_list = []
-    for each in Property.objects.all():
-        properties_list.append((each.title, each.title))
     property = TypedChoiceField(choices=properties_list, widget=RadioSelect)
     amenities_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
     services_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
     noise_level_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.properties_list = Property.get_property_titles()
 
 
 #  TODO
