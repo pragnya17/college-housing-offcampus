@@ -55,8 +55,7 @@
         <br>
         <div class="container">
           <h2>Your Favorite Properties</h2>
-          {% for property in model %}
-          {% if property.favorite == True %}
+          {% for property in favorited %}
           <div class="card" style="width: 18rem;">
             <div class="card-body">
               <h5 class="card-title">{{property.title}}</h5>
@@ -68,7 +67,6 @@
               <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
             </div>
           </div>
-          {% endif %}
           {% endfor %}
         </div>
         <div>

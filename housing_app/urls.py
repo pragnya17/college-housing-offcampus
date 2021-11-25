@@ -30,5 +30,5 @@ urlpatterns = [
     path('dashboard', views.myDash, name="dashboard"),
     path('forum/', include('forum.urls')),
     path('review/', views.ReviewFormView, name='review'),
-
+    path('<int:fav_id>/favorite_property/', views.favorite_property, name='favorite_property')
 ]
