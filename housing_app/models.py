@@ -2,7 +2,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django import forms
-from django.forms import ModelChoiceField, RadioSelect, IntegerField
+from django.forms import TypedChoiceField, RadioSelect, IntegerField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 
@@ -83,7 +83,7 @@ class Property(models.Model):
     
     @classmethod
     def get_property_titles(cls):
-      return cls.objects.all()
+      return cls.objects.values_list('title', flat=True)
     
     # reference used: https://stackoverflow.com/questions/2587707/django-fix-admin-plural
     class Meta:
@@ -108,14 +108,18 @@ class Rating(models.Model):
 
 class RatingForm(forms.Form):
     properties_list = []
-    property = ModelChoiceField(queryset=properties_list, widget=RadioSelect)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        properties_query = Property.get_property_titles()
+        #self.properties_list = []
+        for title in properties_query:
+            self.properties_list.append((title, title))
+
+    property = TypedChoiceField(choices=properties_list, widget=RadioSelect)
     amenities_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
     services_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
     noise_level_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.properties_list = Property.get_property_titles()
 
 
 
