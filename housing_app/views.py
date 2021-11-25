@@ -36,15 +36,9 @@ class PropertiesDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        ratings = Rating.objects.get(property=Property.title)
-
-        # get average ratings in each categoryRating
-        len_ratings = len(ratings)
-        if len_ratings == 0:  # no ratings available yet
-            avg_amenities = -1
-            avg_service = -1
-            avg_noise = -1
-        else:
+        try:
+            ratings = Rating.objects.get(property=Property.title)
+            len_ratings = len(ratings)
             amenities_sum = 0
             service_sum = 0
             noise_sum = 0
@@ -55,6 +49,12 @@ class PropertiesDetailView(DetailView):
             avg_amenities = amenities_sum / len_ratings
             avg_service = service_sum / len_ratings
             avg_noise = noise_sum / len_ratings
+
+        except:
+            # no ratings available yet
+            avg_amenities = -1
+            avg_service = -1
+            avg_noise = -1
 
         context['avg_amenities'] = avg_amenities
         context['avg_service'] = avg_service
@@ -88,7 +88,7 @@ def RatingFormView(request):
         form = RatingForm(request.POST)
         if form.is_valid():
             obj = Rating()
-            obj.property = form['property']
+            obj.property = form.cleaned_data['property']
             obj.amenities_rating = form.cleaned_data['amenities_rating']
             obj.services_rating = form.cleaned_data['services_rating']
             obj.noise_level_rating = form.cleaned_data['noise_level_rating']
