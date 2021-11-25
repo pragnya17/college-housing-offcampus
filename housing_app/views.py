@@ -33,16 +33,12 @@ class PropertiesListView(ListView):
 # Code sourced from https://stackoverflow.com/questions/51950416/reversemanytoonedescriptor-object-has-no-attribute-all
 class PropertiesDetailView(DetailView):
     model = Property
-    queryset = Property.objects.all()
-
-    def get_object(self):
-        obj = super().get_object()
-        return obj
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super(PropertiesDetailView, self).get_context_data(**kwargs)
         try:
-            ratings = Rating.objects.get(property=self.get_object().title)
+            # get property object's title and find all the matchin ratings for that property
+            ratings = Rating.objects.get(property=self.kwargs.get("title"))
             len_ratings = len(ratings)
             amenities_sum = 0
             service_sum = 0
