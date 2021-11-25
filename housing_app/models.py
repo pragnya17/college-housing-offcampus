@@ -2,7 +2,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django import forms
-from django.forms import TypedChoiceField, RadioSelect, IntegerField
+from django.forms import ModelChoiceField, RadioSelect, IntegerField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 
@@ -108,7 +108,7 @@ class Rating(models.Model):
 
 class RatingForm(forms.Form):
     properties_list = []
-    property = TypedChoiceField(choices=properties_list, widget=RadioSelect)
+    property = ModelChoiceField(model=Property, widget=RadioSelect)
     amenities_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
     services_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
     noise_level_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
