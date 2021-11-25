@@ -115,7 +115,11 @@ class RatingForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.properties_list = Property.get_property_titles()
+        properties_query = Property.get_property_titles()
+        properties_list = []
+        for title in properties_query:
+            properties_list.append((title, title))
+
 
 
 #  TODO
