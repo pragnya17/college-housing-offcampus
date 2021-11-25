@@ -57,7 +57,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         return "/users/%i/" % (self.pk)
 
 class Property(models.Model):
-    title = models.TextField(max_length=200)
+    title = models.CharField(max_length=200)
     description = models.CharField(max_length=75)
     total_price = models.DecimalField(max_digits=7, decimal_places=2)
     distance = models.DecimalField(max_digits=4, decimal_places=2, default=0)
@@ -91,7 +91,7 @@ class Property(models.Model):
 class Rating(models.Model):
     #property = models.ForeignKey(Property, related_name='ratings', blank=True, null=True,
                                 # on_delete=models.CASCADE)
-    property = models.TextField(max_length=200, default="")
+    property = models.CharField(max_length=200, default="")
     amenities_rating = models.IntegerField(default=0,
                                                    validators=[MaxValueValidator(5), MinValueValidator(0)]
 )
