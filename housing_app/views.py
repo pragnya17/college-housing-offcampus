@@ -37,7 +37,7 @@ class PropertiesDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
-            ratings = Rating.objects.get(property=Property.title)
+            ratings = Rating.objects.get(property=property.title)
             len_ratings = len(ratings)
             amenities_sum = 0
             service_sum = 0
