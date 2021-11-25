@@ -56,6 +56,7 @@ class PropertiesDetailView(DetailView):
             avg_service = -1
             avg_noise = -1
 
+        context['title'] = Property.title
         context['avg_amenities'] = avg_amenities
         context['avg_service'] = avg_service
         context['avg_noise'] = avg_noise
