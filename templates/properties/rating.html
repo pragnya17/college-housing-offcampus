@@ -30,14 +30,13 @@
 <!--        </div>-->
 <!--      </div>-->
 <!--    </div>-->
-    <form method="post">
-    <fieldset>
+    <form action="{% url 'RatingFormView' %}" method="post">
+    <fieldset id="property">
         <legend>Choose a property to rate</legend>
         {% for each in properties %}
             <input type="radio" name="property" value=each.title> {{ each.title }} <br>
         {% endfor %}
         <br>
-        <input type="submit" value="Submit now">
     </fieldset>
     </form>
     {% bootstrap_form form %}
