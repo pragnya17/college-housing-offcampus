@@ -24,10 +24,10 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('accounts/', include('allauth.urls')),
     path('logout', LogoutView.as_view()),
-    path('properties/<int:pk>/', views.PropertiesDetailView.as_view(template_name="properties/property.html"), name='property'),
+    #path('properties/<int:pk>/', views.PropertiesDetailView, name='property'),
     #path('properties/', views.favorite_property, name = 'properties'),
     #path('dashboard', views.DashboardListView.as_view(template_name="properties/dashboard.html"), name = "dashboard"), 
-    path('dashboard', views.myDash, name = "dashboard" ), 
+    path('dashboard', views.myDash, name="dashboard"),
     path('forum/', include('forum.urls')),
-    path('properties/review', views.ReviewFormView, name='review'),
+    path('properties/rating', views.RatingFormView, name='rating'),
 ]

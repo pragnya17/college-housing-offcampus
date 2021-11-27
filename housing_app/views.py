@@ -1,15 +1,12 @@
 from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, render, HttpResponse, redirect
 
+
 # Create your views here.
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
-from housing_app.models import Property
 from . import models
-from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
-from housing_app.models import ReviewForm
 from .models import *
 from .filters import PropertyFilter
 
@@ -34,33 +31,77 @@ class PropertiesListView(ListView):
     #         myProperty.save()
     #     return render(request, "properties/properties.html", {'model': model})
 
+
+# Code sourced from https://stackoverflow.com/questions/51950416/reversemanytoonedescriptor-object-has-no-attribute-all
 class PropertiesDetailView(DetailView):
     model = Property
 
-def reviews_list(request):
-    reviews_list = models.Review.objects.all()
-    return render(request, 'templates', {'reviews_list': reviews_list})
+    def get_context_data(self, **kwargs):
+        context = super(PropertiesDetailView, self).get_context_data(**kwargs)
+
+        try:
+            # Sourced from https://www.valentinog.com/blog/detail/
+            # get property object's title and find all the matchin ratings for that property
+            property_title = Property.objects.get(pk=self.kwargs.get("pk")).title
+            ratings = Rating.objects.filter(property=property_title)
+            len_ratings = len(ratings)
+            amenities_sum = 0
+            service_sum = 0
+            noise_sum = 0
+            for rating in ratings:
+                amenities_sum += rating.amenities_rating
+                service_sum += rating.services_rating
+                noise_sum += rating.noise_level_rating
+            avg_amenities = amenities_sum / len_ratings
+            avg_service = service_sum / len_ratings
+            avg_noise = noise_sum / len_ratings
+
+        except:
+            # no ratings available yet
+            avg_amenities = -1
+            avg_service = -1
+            avg_noise = -1
+
+        context['title'] = ratings
+        context['avg_amenities'] = avg_amenities
+        context['avg_service'] = avg_service
+        context['avg_noise'] = avg_noise
+
+        return context
+
 
 def myDash(request):
     model = Property.objects.all()
-    return render(request, "properties/dashboard.html", {'model':model})
+    return render(request, "properties/dashboard.html", {'model': model})
+
+
+def map(request):
+    model = Property.objects.all()
+    return render(request, "map.html", {'model':model})
 
 def index(request):
     model = Property.objects.all()
     return render(request, "index.html", {'model':model})
 
-def ReviewFormView(request):
-    if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            obj = Review()
-            obj.review_title = form.cleaned_data['review_title']
-            obj.amenities = form.cleaned_data['amenities_rating']
-            obj.management = form.cleaned_data['management']
-            obj.noise_level = form.cleaned_data['noise_level']
-            obj.save()
-            return HttpResponseRedirect('/properties/review')
-    else:
-        form = ReviewForm()
+    # def get_context_data(self, **kwargs):
+    #     # Call the base implementation first to get a context
+    #     context = super().get_context_data(**kwargs)
+    #     # Add in a QuerySet of all the books
+    #     context['review_list'] = Review.objects.all()
+    #     return context
 
-    return render(request, 'properties/review.html', {'form': form})
+def RatingFormView(request):
+    if request.method == 'POST':
+        form = RatingForm(request.POST)
+        if form.is_valid():
+            obj = Rating()
+            obj.property = form.cleaned_data['property']
+            obj.amenities_rating = form.cleaned_data['amenities_rating']
+            obj.services_rating = form.cleaned_data['services_rating']
+            obj.noise_level_rating = form.cleaned_data['noise_level_rating']
+            obj.save()
+            return HttpResponseRedirect('/properties/rating')
+    else:
+        form = RatingForm()
+
+    return render(request, 'properties/rating.html', {'form': form})

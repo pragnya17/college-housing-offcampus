@@ -1,23 +1,93 @@
 {% extends "index.html" %}
 
 {% block content %}
-    <head>
-        <p>Look for properties using the map below. The pink markers indicate the locations of different properties' addresses you searched for.</p>
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-        <link rel="stylesheet" type="text/css" href="../static/map.css" />
-        <script src="../static/map.js"></script>
-    </head>
-    <input
-      id="search-bar"
-      class="controls"
-      type="text"
-      placeholder="Search Bar"
-    />
-    <body>
-        <div id="map"></div>
-        <script
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIZKaH2Ghg-DHyc3fNR03JfmblDwBEhE8&libraries=places&callback=initMap"
-          async
-        ></script>
-    </body>
+
+<head>
+  <p>Look for properties using the map below. The orange houses indicate locations of each listed property, while pink markers indicate locations of properties you've searched for.</p>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <link rel="stylesheet" type="text/css" href="../static/map.css" />
+</head>
+<input id="search-bar" class="controls" type="text" placeholder="Search Bar" />
+
+<body>
+  <div id="map"></div>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIZKaH2Ghg-DHyc3fNR03JfmblDwBEhE8&libraries=places&callback=initialize"
+    async></script>
+  <script type="text/javascript">
+    // Adapted from https://developers.google.com/maps/documentation/javascript/overview#maps_map_simple-javascript
+    // and https://developers.google.com/maps/documentation/javascript/examples/places-searchbox#maps_places_searchbox-html
+    function initialize() {
+      var marker;
+      var map;
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 38.034493639911936, lng: -78.50999182771713 },
+        zoom: 15,
+      });
+      const input = document.getElementById("search-bar");
+      const searchBox = new google.maps.places.SearchBox(input);
+
+      // Bias the SearchBox results towards current map's viewport.
+      map.addListener("bounds_changed", () => {
+        searchBox.setBounds(map.getBounds());
+      });
+
+      // store all locations that have been entered so far
+      let markers = [];
+
+      // Adapted from https://stackoverflow.com/a/31161043
+      {% for property in model %}
+      var latLng = new google.maps.LatLng({{ property.lat }}, {{ property.lon }});
+      marker = new google.maps.Marker({
+      position: latLng,
+      map: map,
+      icon: {url: '/static/pictures/property-map-icon.png'},
+      title: '{{ property.title }}',
+      url: '{% url 'property' property.id %}',
+      });
+      markers.push(marker);
+      google.maps.event.addListener(marker, 'click', function () {
+        console.log("here");
+        window.location.href = this.url;
+      });
+      {% endfor %}
+
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener("places_changed", () => {
+      const places = searchBox.getPlaces();
+
+      if (places.length == 0) {
+        return;
+      }
+
+      // For each place, get the icon, name and location.
+      const bounds = new google.maps.LatLngBounds();
+
+      places.forEach((place) => {
+        if (!place.geometry || !place.geometry.location) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+
+        // Create a marker for each place.
+        markers.push(
+          new google.maps.Marker({
+            map,
+            icon: { url: "http://maps.google.com/mapfiles/ms/icons/pink-dot.png" },
+            title: place.name,
+            position: place.geometry.location,
+          })
+        );
+        // get general location
+        bounds.union(place.geometry.viewport);
+        // get specific location
+        bounds.extend(place.geometry.location);
+      });
+      // resize map bounds based on markers' locations
+      map.fitBounds(bounds);
+    });
+    }
+  </script>
+</body>
 {% endblock %}
