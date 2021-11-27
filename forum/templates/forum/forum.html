@@ -6,13 +6,13 @@
         <h2 class="jumbotron">
             Currently active forums: {{count}}
             <h4>Post here to discuss housing options and to see if anyone is looking for roommates!</h4>
-            <form method="POST" action="{% url 'forum:addInForum' %}">
+            <form method="POST" action="{% url 'forum:addInForum' %}" novalidate>
                 {% csrf_token %}
             <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Start a new discussion topic</button>
             </form>
         </h2>
             <div class="card-columns" style="margin: 20px;"></div>
-            
+
             {%for forum in forums %}
                 <div class="card box container">
                     <br>
@@ -21,7 +21,7 @@
                         <div class="card-body container">
                                 <p>{{forum.description}}</p>
                             </h5>
-                            <p> By: {{forum.name}}</p>   
+                            <p> By: {{forum.name}}</p>
                             <h3>Replies from other users</h3>
                             {% for discussion in myDiscussions %}
                                 {% if discussion.myForum.topic == forum.topic %}
@@ -33,8 +33,8 @@
                             {% endfor %}
                         </div>
                         </body>
-                            
-                            <form method="POST" action="{% url 'forum:addInDiscussion' %}">
+
+                            <form method="POST" action="{% url 'forum:addInDiscussion' %}" novalidate>
                                 {% csrf_token %}
                             <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Add a reply</button>
                             </form>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <br>
-            
+
             {%endfor%}
     {% endif %}
 {% endblock %}

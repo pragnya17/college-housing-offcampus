@@ -1,5 +1,5 @@
 from django.http.response import JsonResponse
-from django.shortcuts import get_object_or_404, render, HttpResponse, redirect 
+from django.shortcuts import get_object_or_404, render, HttpResponse, redirect
 
 # Create your views here.
 from django.http import HttpResponseRedirect
@@ -22,17 +22,17 @@ class PropertiesListView(ListView):
         context['filter'] = PropertyFilter(self.request.GET, queryset=self.get_queryset())
         return context
 
-    def favorite_property(request):
-        model = Property.objects.all()
-        if (request.method == "POST"):
-            # print(request.POST.get("property", ""))
-            myProperty = get_object_or_404(Property, pk=request.POST.get("property", ""))
-            if myProperty.favorite:
-                myProperty.favorite = False
-            else:
-                myProperty.favorite = True
-            myProperty.save()
-        return render(request, "properties/properties.html", {'model': model})
+    # def favorite_property(request):
+    #     model = Property.objects.all()
+    #     if (request.method == "POST"):
+    #         # print(request.POST.get("property", ""))
+    #         myProperty = get_object_or_404(Property, pk=request.POST.get("property", ""))
+    #         if myProperty.favorite:
+    #             myProperty.favorite = False
+    #         else:
+    #             myProperty.favorite = True
+    #         myProperty.save()
+    #     return render(request, "properties/properties.html", {'model': model})
 
 class PropertiesDetailView(DetailView):
     model = Property
@@ -49,13 +49,6 @@ def index(request):
     model = Property.objects.all()
     return render(request, "index.html", {'model':model})
 
-    # def get_context_data(self, **kwargs):
-    #     # Call the base implementation first to get a context
-    #     context = super().get_context_data(**kwargs)
-    #     # Add in a QuerySet of all the books
-    #     context['review_list'] = Review.objects.all()
-    #     return context
-
 def ReviewFormView(request):
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -71,4 +64,3 @@ def ReviewFormView(request):
         form = ReviewForm()
 
     return render(request, 'properties/review.html', {'form': form})
-

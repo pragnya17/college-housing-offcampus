@@ -2,7 +2,7 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <form action="{% url 'forum:addInForum' %}" method="POST">
+        <form action="{% url 'forum:addInForum' %}" method="POST" novalidate>
             {% csrf_token %}
                 {{form.as_p}}
             <input type="submit" class="btn btn-success" value="submit">

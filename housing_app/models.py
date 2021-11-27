@@ -14,11 +14,11 @@ class UserManager(BaseUserManager):
     email = self.normalize_email(email)
     user = self.model(
         email=email,
-        is_staff=is_staff, 
+        is_staff=is_staff,
         is_active=True,
-        is_superuser=is_superuser, 
+        is_superuser=is_superuser,
         last_login=now,
-        date_joined=now, 
+        date_joined=now,
         **extra_fields
     )
     user.set_password(password)
@@ -43,7 +43,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     last_login = models.DateTimeField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    
+
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
@@ -67,7 +67,7 @@ class Property(models.Model):
     services = models.TextField(default="")
     amenities = models.TextField(default="")
     avg_amenities = models.DecimalField(max_digits=1, decimal_places=0, default=5)
-    favorite = models.BooleanField(default=False)
+    #favorite = models.BooleanField(default=False)
     floorplan_file_name = models.CharField(max_length=100, default="/static/floorplans/floorplan.jpg")
     picture_file_name = models.CharField(max_length=100, default="/static/pictures/sample_house.jpg")
 
@@ -76,11 +76,10 @@ class Property(models.Model):
         return 'This property has no title'
       else:
         return self.title
-    
+
     # reference used: https://stackoverflow.com/questions/2587707/django-fix-admin-plural
     class Meta:
       verbose_name_plural = "properties"
-
 
 class Review(models.Model):
     review_title = models.CharField(max_length=200, default="")
@@ -93,6 +92,11 @@ class ReviewForm(ModelForm):
     class Meta:
         model = Review
         fields = ['review_title', 'amenities_rating', 'management', 'noise_level']
+
+#class UserFavorites(models.Model):
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
+    #property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    #favorite = models.BooleanField(default=False)
 
 #  TODO
 # class Review(models.Model):

@@ -1,8 +1,9 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse  
-from .models import * 
-from .forms import * 
+from django.urls import reverse
+from .models import *
+from .forms import *
+from django.core.exceptions import ValidationError
 
 # Create your views here.
 
@@ -14,27 +15,13 @@ def forumHome(request):
     count=forums.count()
     #discussions=[]
     myDiscussions = Discussion.objects.all()
-    #for i in forums:
-        #discussion_set = Discussion.objects.filter(i=i)
-        #reply = Discussion.objects.filter(i=i)
-
-        #discussions.append(i.discussion_set.all())
-        #discussions.append(discussion_set)
-        #discussions.append(i.name)
-
-        #discussions.append(i.reply.all())
-        
-
-        #post = Post.objects.filter(id=myid).first()
-        #replies = Replie.objects.filter(post=post)
- 
     context={'forums':forums,
               'count':count,
               'myDiscussions':myDiscussions}
     return render(request, 'forum/forum.html', context)
     #return HttpResponseRedirect(request,'forum:forum.html',context)
     #return HttpResponseRedirect(reverse('forum:addInForum'))
- 
+
 def addInForum(request):
     form = CreateInForum()
     if request.method == 'POST':
