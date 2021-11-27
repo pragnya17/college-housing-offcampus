@@ -103,13 +103,14 @@ class Rating(models.Model):
     noise_level_rating = models.IntegerField(default=0,
                                                      validators=[MaxValueValidator(5), MinValueValidator(0)]
                                                      )
-    def __str__(self):
-        return self.property
+
+class PropertyForm(forms.Form):
+    property = models.CharField(max_length=200, default="")
 
 class RatingForm(forms.Form):
-    properties_list = []
-    for each in Property.objects.all():
-        properties_list.append((each, each))
+    # properties_list = []
+    # for each in Property.objects.all():
+    #     properties_list.append((each, each))
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
     #     properties_query = Property.get_property_titles()
@@ -117,7 +118,7 @@ class RatingForm(forms.Form):
     #     for title in properties_query:
     #         self.properties_list.append((title, title))
 
-    property = TypedChoiceField(choices=properties_list, widget=RadioSelect)
+    #property = TypedChoiceField(choices=properties_list, widget=RadioSelect)
     amenities_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
     services_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
     noise_level_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
