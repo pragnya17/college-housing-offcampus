@@ -15,7 +15,6 @@ urlpatterns = [
     path('properties/<int:pk>/', views.PropertiesDetailView.as_view(template_name="properties/property.html"), name='property'),
     path('map/', views.map, name="map"),
     path('admin/', admin.site.urls),
-    path('properties/rating', views.RatingFormView, name='rating'),
 ]
 
 if settings.DEBUG:
