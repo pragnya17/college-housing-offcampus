@@ -34,7 +34,7 @@
         <fieldset id="property">
             <legend>Choose a property to rate</legend>
             {% for each in properties %}
-                <input type="radio" name="property" value=each.title> {{ each.title }} <br>
+                <input type="radio" name="property" value="each.title"> {{ each.title }} <br>
             {% endfor %}
             <br>
         </fieldset>
