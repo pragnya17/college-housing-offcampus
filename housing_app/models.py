@@ -93,7 +93,7 @@ class Property(models.Model):
 class Rating(models.Model):
     #property = models.ForeignKey(Property, related_name='ratings', blank=True, null=True,
                                 # on_delete=models.CASCADE)
-    property = models.CharField(max_length=200, default="")
+    # property = models.CharField(max_length=200, default="")
     amenities_rating = models.IntegerField(default=0,
                                                    validators=[MaxValueValidator(5), MinValueValidator(0)]
 )
