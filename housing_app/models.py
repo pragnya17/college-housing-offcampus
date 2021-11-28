@@ -104,25 +104,25 @@ class Rating(models.Model):
                                                      validators=[MaxValueValidator(5), MinValueValidator(0)]
                                                      )
 
-class PropertyForm(forms.Form):
-    property = models.CharField(max_length=200, default="")
-
-class RatingForm(forms.Form):
-    # properties_list = []
-    # for each in Property.objects.all():
-    #     properties_list.append((each, each))
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     properties_query = Property.get_property_titles()
-    #     #self.properties_list = []
-    #     for title in properties_query:
-    #         self.properties_list.append((title, title))
-
-    #property = TypedChoiceField(choices=properties_list, widget=RadioSelect)
-    amenities_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
-    services_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
-    noise_level_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
-
+# class PropertyForm(forms.Form):
+#     property = models.CharField(max_length=200, default="")
+#
+# class RatingForm(forms.Form):
+#     # properties_list = []
+#     # for each in Property.objects.all():
+#     #     properties_list.append((each, each))
+#     # def __init__(self, *args, **kwargs):
+#     #     super().__init__(*args, **kwargs)
+#     #     properties_query = Property.get_property_titles()
+#     #     #self.properties_list = []
+#     #     for title in properties_query:
+#     #         self.properties_list.append((title, title))
+#
+#     #property = TypedChoiceField(choices=properties_list, widget=RadioSelect)
+#     amenities_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
+#     services_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
+#     noise_level_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
+#
 
 
 
