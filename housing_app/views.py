@@ -93,7 +93,7 @@ def RatingFormView(request):
             # form = RatingForm(request.POST)
             #if form.is_valid():
             obj = Rating()
-            obj.id = request.POST.get('property','')
+            obj.property_id= request.POST.get('property','')
             obj.amenities_rating = request.POST.get('amenities','')
             obj.services_rating = request.POST.get('services','')
             obj.noise_level_rating = request.POST.get('noise','')
