@@ -34,4 +34,4 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Property)
-admin.site.register(Rating)
+admin.site.register(Review)

@@ -53,5 +53,13 @@
     </ul>
 
     <a href="{% url 'properties' %}">Back to Listings</a>
-    
+
+    {% for review in text_reviews %}
+        <div class="card">
+            <div class="card-body">
+                <text class="card-text">{{review}}</text><br>
+            </div>
+        </div>
+    {% endfor %}
+
 {% endblock %}

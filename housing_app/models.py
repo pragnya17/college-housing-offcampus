@@ -92,7 +92,7 @@ class Property(models.Model):
       verbose_name_plural = "properties"
 
 
-class Rating(models.Model):
+class Review(models.Model):
     #property = models.ForeignKey(Property, related_name='ratings', blank=True, null=True,
                                 # on_delete=models.CASCADE)
     property_id = models.IntegerField(default=-1)
@@ -105,6 +105,7 @@ class Rating(models.Model):
     noise_level_rating = models.IntegerField(default=0,
                                                      validators=[MaxValueValidator(5), MinValueValidator(0)]
                                                      )
+    text_review = models.TextField(default="", max_length=10000)
 
 # class PropertyForm(forms.Form):
 #     property = models.CharField(max_length=200, default="")

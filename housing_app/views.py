@@ -41,28 +41,32 @@ class PropertiesDetailView(DetailView):
         # get property object's title and find all the matchin ratings for that property
 
         property_id = kwargs.get("object").id
-        ratings = Rating.objects.filter(property_id=property_id)
-        len_ratings = len(ratings)
-        if len_ratings > 0:
+        reviews = Review.objects.filter(property_id=property_id)
+        len_reviews = len(reviews)
+        if len_reviews > 0:
             amenities_sum = 0
             service_sum = 0
             noise_sum = 0
-            for rating in ratings:
-                amenities_sum += rating.amenities_rating
-                service_sum += rating.services_rating
-                noise_sum += rating.noise_level_rating
-            avg_amenities = amenities_sum / len_ratings
-            avg_service = service_sum / len_ratings
-            avg_noise = noise_sum / len_ratings
+            text_reviews = []
+            for review in reviews:
+                amenities_sum += review.amenities_rating
+                service_sum += review.services_rating
+                noise_sum += review.noise_level_rating
+                text_reviews.append(review.text_review)
+            avg_amenities = amenities_sum / len_reviews
+            avg_service = service_sum / len_reviews
+            avg_noise = noise_sum / len_reviews
         else:
         # no ratings available yet
             avg_amenities = -1
             avg_service = -1
             avg_noise = -1
+            text_reviews = []
 
         context['avg_amenities'] = round(avg_amenities, 2)
         context['avg_service'] = round(avg_service, 2)
         context['avg_noise'] = round(avg_noise, 2)
+        context['text_reviews'] = text_reviews
 
         return context
 
@@ -91,11 +95,12 @@ def RatingFormView(request):
         if request.method == 'POST':
             # form = RatingForm(request.POST)
             #if form.is_valid():
-            obj = Rating()
+            obj = Review()
             obj.property_id= request.POST.get('property','')
             obj.amenities_rating = request.POST.get('amenities','')
             obj.services_rating = request.POST.get('services','')
             obj.noise_level_rating = request.POST.get('noise','')
+            obj.text_review = request.POST.get('text_review', '')
             obj.save()
             return HttpResponseRedirect('/properties/rating')
         # else:
