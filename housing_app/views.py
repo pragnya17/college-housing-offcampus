@@ -92,19 +92,15 @@ def index(request):
     #     return context
 
 def ReviewFormView(request):
-        if request.method == 'POST':
-            # form = RatingForm(request.POST)
-            #if form.is_valid():
-            obj = Review()
-            obj.property_id= request.POST.get('property','')
-            obj.amenities_rating = request.POST.get('amenities','')
-            obj.services_rating = request.POST.get('services','')
-            obj.noise_level_rating = request.POST.get('noise','')
-            obj.text_review = request.POST.get('text_review', '')
-            obj.save()
-            return HttpResponseRedirect('/review')
-        # else:
-            # form = RatingForm()
-        return render(request, 'properties/review.html', {'properties': Property.objects.all()})
+    if request.method == 'POST':
+        obj = Review()
+        obj.property_id= request.POST.get('property','')
+        obj.amenities_rating = request.POST.get('amenities','')
+        obj.services_rating = request.POST.get('services','')
+        obj.noise_level_rating = request.POST.get('noise','')
+        obj.text_review = request.POST.get('text_review', '')
+        obj.save()
+        return HttpResponseRedirect('/review')
+    return render(request, 'properties/review.html', {'properties': Property.objects.all()})
 
 
