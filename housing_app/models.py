@@ -58,7 +58,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Property(models.Model):
     # primary key auto field
-    id = models.BigAutoField(primary_key=True)
+    #id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=75)
     total_price = models.DecimalField(max_digits=7, decimal_places=2)
@@ -95,7 +95,7 @@ class Property(models.Model):
 class Rating(models.Model):
     #property = models.ForeignKey(Property, related_name='ratings', blank=True, null=True,
                                 # on_delete=models.CASCADE)
-    property_id = models.IntegerField(default=-1, primary_key=True)
+    property_id = models.IntegerField(default=-1)
     amenities_rating = models.IntegerField(default=0,
                                                    validators=[MaxValueValidator(5), MinValueValidator(0)]
 )
