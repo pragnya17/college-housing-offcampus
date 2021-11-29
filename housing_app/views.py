@@ -40,7 +40,7 @@ class PropertiesDetailView(DetailView):
         #try:
             # Sourced from https://www.valentinog.com/blog/detail/
             # get property object's title and find all the matchin ratings for that property
-        property_id = kwargs.get("object").get("id")
+        property_id = kwargs.get("object").id
         ratings = Rating.objects.filter(property_id=property_id)
         len_ratings = len(ratings)
         amenities_sum = 0
