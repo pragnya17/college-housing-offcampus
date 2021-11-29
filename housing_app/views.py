@@ -37,12 +37,13 @@ class PropertiesDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PropertiesDetailView, self).get_context_data(**kwargs)
 
-        try:
-            # Sourced from https://www.valentinog.com/blog/detail/
-            # get property object's title and find all the matchin ratings for that property
-            property_title = Property.objects.get(pk=self.kwargs.get("pk")).title
-            ratings = Rating.objects.filter(property=property_title)
-            len_ratings = len(ratings)
+        # Sourced from https://www.valentinog.com/blog/detail/
+        # get property object's title and find all the matchin ratings for that property
+
+        property_id = kwargs.get("object").id
+        ratings = Rating.objects.filter(property_id=property_id)
+        len_ratings = len(ratings)
+        if len_ratings > 0:
             amenities_sum = 0
             service_sum = 0
             noise_sum = 0
@@ -53,17 +54,15 @@ class PropertiesDetailView(DetailView):
             avg_amenities = amenities_sum / len_ratings
             avg_service = service_sum / len_ratings
             avg_noise = noise_sum / len_ratings
-
-        except:
-            # no ratings available yet
+        else:
+        # no ratings available yet
             avg_amenities = -1
             avg_service = -1
             avg_noise = -1
 
-        context['title'] = ratings
-        context['avg_amenities'] = avg_amenities
-        context['avg_service'] = avg_service
-        context['avg_noise'] = avg_noise
+        context['avg_amenities'] = round(avg_amenities, 2)
+        context['avg_service'] = round(avg_service, 2)
+        context['avg_noise'] = round(avg_noise, 2)
 
         return context
 
@@ -89,18 +88,18 @@ def index(request):
     #     return context
 
 def RatingFormView(request):
-    if request.method == 'POST':
-        form = RatingForm(request.POST)
-        if form.is_valid():
+        if request.method == 'POST':
+            # form = RatingForm(request.POST)
+            #if form.is_valid():
             obj = Rating()
-            obj.property = form.cleaned_data['property']
-            obj.amenities_rating = form.cleaned_data['amenities_rating']
-            obj.services_rating = form.cleaned_data['services_rating']
-            obj.noise_level_rating = form.cleaned_data['noise_level_rating']
+            obj.property_id= request.POST.get('property','')
+            obj.amenities_rating = request.POST.get('amenities','')
+            obj.services_rating = request.POST.get('services','')
+            obj.noise_level_rating = request.POST.get('noise','')
             obj.save()
             return HttpResponseRedirect('/properties/rating')
-    else:
-        form = RatingForm()
+        # else:
+            # form = RatingForm()
+        return render(request, 'properties/rating.html', {'properties': Property.objects.all()})
 
-    return render(request, 'properties/rating.html', {'form': form})
 

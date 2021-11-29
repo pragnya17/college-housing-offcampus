@@ -28,17 +28,17 @@
         {% endif %}
     </ul>
     <ul>
-        {% if avg_amenities != -1 %}
-            Average Rating for Amenities: {{ avg_amenities }}
-        {% else %}
+        {% if avg_amenities == -1 %}
             No ratings available for Amenities yet
+        {% else %}
+            Average Rating for Amenities: {{ avg_amenities }}
         {% endif %}
     </ul>
     <ul>
-        {% if avg_noise != -1 %}
-            Average Rating for Noise Level: {{ avg_noise }}
-        {% else %}
+        {% if avg_noise == -1 %}
             No ratings available for Noise Level yet
+        {% else %}
+            Average Rating for Noise Level: {{ avg_noise }}
         {% endif %}
     </ul>
     <ul>

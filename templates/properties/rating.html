@@ -30,13 +30,28 @@
 <!--        </div>-->
 <!--      </div>-->
 <!--    </div>-->
-
-    {% bootstrap_form form %}
-    <div class="container-fluid">
+    <form action="{% url 'rating' %}" method="post">
+        <fieldset id="property">
+            <legend>Choose a property to rate</legend>
+            {% for each in properties %}
+                <input type="radio" name="property" value={{each.id}} required> {{ each.title }} <br>
+            {% endfor %}
+            <br>
+        </fieldset>
+        <label for="amenities">Amenities Rating:</label>
+        <input type="number" min="0" max="5" id="amenities" name="amenities" required><br><br>
+        <label for="services">Services:</label>
+        <input type="number" min="0" max="5" id="services" name="services" required><br><br>
+        <label for="noise">Noise Level:</label>
+        <input type="number" min="0" max="5" id="noise" name="noise" required><br><br>
         <button class="btn-outline-primary" button_type="submit" content="OK"> Submit </button>
-        <button class="btn-outline-primary" button_type="reset" input_type="reset"    amenities_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
-        content="Reset"> Reset </button>
-    </div>
+        <button class="btn-outline-primary" button_type="reset" input_type="reset" content="Reset"> Reset </button>
+    </form>
+
+<!--    <div class="container-fluid">-->
+<!--        -->
+<!--    </div>-->
+
     <a href="{% url 'properties' %}">Back to Listings</a>
 </form>
 {% endblock %}

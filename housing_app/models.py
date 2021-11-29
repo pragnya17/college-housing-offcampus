@@ -57,6 +57,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         return "/users/%i/" % (self.pk)
 
 class Property(models.Model):
+    # primary key auto field
+    #id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=75)
     total_price = models.DecimalField(max_digits=7, decimal_places=2)
@@ -69,7 +71,7 @@ class Property(models.Model):
     lat = models.FloatField(default=38.034493639911936)
     lon = models.FloatField(default=-78.50999182771713)
     services = models.TextField(default="")
-    avg_amenities = models.DecimalField(max_digits=1, decimal_places=0, default=5)
+    # avg_amenities = models.DecimalField(max_digits=1, decimal_places=0, default=5)
     amenities = models.TextField(default="")
     favorite = models.BooleanField(default=False)
     floorplan_file_name = models.CharField(max_length=100, default="/static/floorplans/floorplan.jpg")
@@ -93,7 +95,7 @@ class Property(models.Model):
 class Rating(models.Model):
     #property = models.ForeignKey(Property, related_name='ratings', blank=True, null=True,
                                 # on_delete=models.CASCADE)
-    property = models.CharField(max_length=200, default="")
+    property_id = models.IntegerField(default=-1)
     amenities_rating = models.IntegerField(default=0,
                                                    validators=[MaxValueValidator(5), MinValueValidator(0)]
 )
@@ -103,19 +105,27 @@ class Rating(models.Model):
     noise_level_rating = models.IntegerField(default=0,
                                                      validators=[MaxValueValidator(5), MinValueValidator(0)]
                                                      )
-    def __str__(self):
-        return self.property
 
-class RatingForm(forms.Form):
-    properties_list = []
-    property = TypedChoiceField(choices=properties_list, widget=RadioSelect)
-    amenities_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
-    services_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
-    noise_level_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
+# class PropertyForm(forms.Form):
+#     property = models.CharField(max_length=200, default="")
+#
+# class RatingForm(forms.Form):
+#     # properties_list = []
+#     # for each in Property.objects.all():
+#     #     properties_list.append((each, each))
+#     # def __init__(self, *args, **kwargs):
+#     #     super().__init__(*args, **kwargs)
+#     #     properties_query = Property.get_property_titles()
+#     #     #self.properties_list = []
+#     #     for title in properties_query:
+#     #         self.properties_list.append((title, title))
+#
+#     #property = TypedChoiceField(choices=properties_list, widget=RadioSelect)
+#     amenities_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
+#     services_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
+#     noise_level_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
+#
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.properties_list = Property.get_property_titles()
 
 
 #  TODO

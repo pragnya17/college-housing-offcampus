@@ -30,4 +30,5 @@ urlpatterns = [
     path('dashboard', views.myDash, name="dashboard"),
     path('forum/', include('forum.urls')),
     path('properties/rating', views.RatingFormView, name='rating'),
+
 ]
