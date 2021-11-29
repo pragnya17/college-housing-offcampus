@@ -102,9 +102,9 @@ def ReviewFormView(request):
             obj.noise_level_rating = request.POST.get('noise','')
             obj.text_review = request.POST.get('text_review', '')
             obj.save()
-            return HttpResponseRedirect('/properties/rating')
+            return HttpResponseRedirect('/review')
         # else:
             # form = RatingForm()
-        return render(request, 'properties/rating.html', {'properties': Property.objects.all()})
+        return render(request, 'properties/review.html', {'properties': Property.objects.all()})
 
 
