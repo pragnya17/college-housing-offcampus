@@ -91,7 +91,7 @@ def index(request):
     #     context['review_list'] = Review.objects.all()
     #     return context
 
-def RatingFormView(request):
+def ReviewFormView(request):
         if request.method == 'POST':
             # form = RatingForm(request.POST)
             #if form.is_valid():
