@@ -29,6 +29,6 @@ urlpatterns = [
     #path('dashboard', views.DashboardListView.as_view(template_name="properties/dashboard.html"), name = "dashboard"), 
     path('dashboard', views.myDash, name="dashboard"),
     path('forum/', include('forum.urls')),
-    path('properties/rating', views.RatingFormView, name='rating'),
+    path('review/', views.ReviewFormView, name='review'),
 
 ]

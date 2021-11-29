@@ -30,7 +30,7 @@
 <!--        </div>-->
 <!--      </div>-->
 <!--    </div>-->
-    <form action="{% url 'rating' %}" method="post">
+    <form action="{% url 'review' %}" method="post">
         <fieldset id="property">
             <legend>Choose a property to rate</legend>
             {% for each in properties %}
@@ -38,12 +38,19 @@
             {% endfor %}
             <br>
         </fieldset>
-        <label for="amenities">Amenities Rating:</label>
+        <label for="amenities">Amenities Rating (0-5):</label>
         <input type="number" min="0" max="5" id="amenities" name="amenities" required><br><br>
-        <label for="services">Services:</label>
+
+        <label for="services">Services (0-5):</label>
         <input type="number" min="0" max="5" id="services" name="services" required><br><br>
-        <label for="noise">Noise Level:</label>
+
+        <label for="noise">Noise Level (0-5):</label>
         <input type="number" min="0" max="5" id="noise" name="noise" required><br><br>
+
+        Review (anything additional you would like to express about this property): <br>
+        <textarea rows = "5" cols = "50" id="text_review" name="text_review">
+        </textarea><br>
+
         <button class="btn-outline-primary" button_type="submit" content="OK"> Submit </button>
         <button class="btn-outline-primary" button_type="reset" input_type="reset" content="Reset"> Reset </button>
     </form>
