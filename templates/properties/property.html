@@ -20,29 +20,26 @@
     <ul>
         Amenities: {{ property.amenities }}
     </ul>
-<ul>
-    Property id: {{ property_id }}
-</ul>
     <ul>
-<!--        {% if avg_service == -1 %}-->
-<!--            No ratings available for Services yet-->
-<!--        {% else %}-->
+        {% if avg_service == -1 %}
+            No ratings available for Services yet
+        {% else %}
             Average Rating for Services: {{ avg_service }}
-<!--        {% endif %}-->
+        {% endif %}
     </ul>
     <ul>
-<!--        {% if avg_amenities != -1 %}-->
+        {% if avg_amenities == -1 %}
+            No ratings available for Amenities yet
+        {% else %}
             Average Rating for Amenities: {{ avg_amenities }}
-<!--        {% else %}-->
-<!--            No ratings available for Amenities yet-->
-<!--        {% endif %}-->
+        {% endif %}
     </ul>
     <ul>
-<!--        {% if avg_noise != -1 %}-->
+        {% if avg_noise == -1 %}
+            No ratings available for Noise Level yet
+        {% else %}
             Average Rating for Noise Level: {{ avg_noise }}
-<!--        {% else %}-->
-<!--            No ratings available for Noise Level yet-->
-<!--        {% endif %}-->
+        {% endif %}
     </ul>
     <ul>
         Parking included: {{ property.parking }}

@@ -37,33 +37,32 @@ class PropertiesDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PropertiesDetailView, self).get_context_data(**kwargs)
 
-        #try:
-            # Sourced from https://www.valentinog.com/blog/detail/
-            # get property object's title and find all the matchin ratings for that property
+        # Sourced from https://www.valentinog.com/blog/detail/
+        # get property object's title and find all the matchin ratings for that property
+
         property_id = kwargs.get("object").id
         ratings = Rating.objects.filter(property_id=property_id)
         len_ratings = len(ratings)
-        amenities_sum = 0
-        service_sum = 0
-        noise_sum = 0
-        for rating in ratings:
-            amenities_sum += rating.amenities_rating
-            service_sum += rating.services_rating
-            noise_sum += rating.noise_level_rating
-        avg_amenities = amenities_sum / len_ratings
-        avg_service = service_sum / len_ratings
-        avg_noise = noise_sum / len_ratings
+        if len_ratings > 0:
+            amenities_sum = 0
+            service_sum = 0
+            noise_sum = 0
+            for rating in ratings:
+                amenities_sum += rating.amenities_rating
+                service_sum += rating.services_rating
+                noise_sum += rating.noise_level_rating
+            avg_amenities = amenities_sum / len_ratings
+            avg_service = service_sum / len_ratings
+            avg_noise = noise_sum / len_ratings
+        else:
+        # no ratings available yet
+            avg_amenities = -1
+            avg_service = -1
+            avg_noise = -1
 
-        # except:
-        #     # no ratings available yet
-        #     avg_amenities = -1
-        #     avg_service = -1
-        #     avg_noise = -1
-
-        context['property_id'] = property_id
-        context['avg_amenities'] = avg_amenities
-        context['avg_service'] = avg_service
-        context['avg_noise'] = avg_noise
+        context['avg_amenities'] = round(avg_amenities, 2)
+        context['avg_service'] = round(avg_service, 2)
+        context['avg_noise'] = round(avg_noise, 2)
 
         return context
 
