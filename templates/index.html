@@ -32,6 +32,9 @@
                 <a class="nav-link" aria-current="page" href="{% url 'map' %}">Map</a>
               </li>
               <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{% url 'forum:forum_home' %}">Forum</a>
+              </li>
+              <li class="nav-item">
                 {% if user.is_authenticated %}
                 <button class="btn nav-link" data-bs-toggle="modal" data-bs-target="#signOutModal">Sign Out</a>
                   {% else %}
