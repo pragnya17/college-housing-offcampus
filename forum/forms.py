@@ -10,3 +10,7 @@ class CreateInDiscussion(ModelForm):
     class Meta:
         model= Discussion
         fields = "__all__"
+        labels = {
+            'myForum': ('Discussion topic'),
+            'discuss': ('Your reply'), 
+        }
