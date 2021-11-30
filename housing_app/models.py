@@ -16,11 +16,11 @@ class UserManager(BaseUserManager):
     email = self.normalize_email(email)
     user = self.model(
         email=email,
-        is_staff=is_staff, 
+        is_staff=is_staff,
         is_active=True,
-        is_superuser=is_superuser, 
+        is_superuser=is_superuser,
         last_login=now,
-        date_joined=now, 
+        date_joined=now,
         **extra_fields
     )
     user.set_password(password)
@@ -45,7 +45,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     last_login = models.DateTimeField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
-    
+
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
@@ -82,11 +82,11 @@ class Property(models.Model):
         return 'This property has no title'
       else:
         return self.title
-    
+
     @classmethod
     def get_property_titles(cls):
       return cls.objects.values_list('title', flat=True)
-    
+
     # reference used: https://stackoverflow.com/questions/2587707/django-fix-admin-plural
     class Meta:
       verbose_name_plural = "properties"
@@ -106,6 +106,7 @@ class Review(models.Model):
                                                      validators=[MaxValueValidator(5), MinValueValidator(0)]
                                                      )
     text_review = models.TextField(default="", max_length=10000)
+    biased_review = models.BooleanField(default=False)
 
 # class PropertyForm(forms.Form):
 #     property = models.CharField(max_length=200, default="")

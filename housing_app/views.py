@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render, HttpResponse, redirect 
+from django.shortcuts import get_object_or_404, render, HttpResponse, redirect
 
 # Create your views here.
 from django.http import HttpResponseRedirect
@@ -47,12 +47,12 @@ class PropertiesDetailView(DetailView):
             amenities_sum = 0
             service_sum = 0
             noise_sum = 0
-            text_reviews = []
+            text_reviews_and_bias = {}
             for review in reviews:
                 amenities_sum += review.amenities_rating
                 service_sum += review.services_rating
                 noise_sum += review.noise_level_rating
-                text_reviews.append(review.text_review)
+                text_reviews_and_bias[review.text_review] = review.biased_review
             avg_amenities = amenities_sum / len_reviews
             avg_service = service_sum / len_reviews
             avg_noise = noise_sum / len_reviews
@@ -61,12 +61,12 @@ class PropertiesDetailView(DetailView):
             avg_amenities = -1
             avg_service = -1
             avg_noise = -1
-            text_reviews = []
+            text_reviews_and_bias = []
 
         context['avg_amenities'] = round(avg_amenities, 2)
         context['avg_service'] = round(avg_service, 2)
         context['avg_noise'] = round(avg_noise, 2)
-        context['text_reviews'] = text_reviews
+        context['text_reviews_and_bias'] = text_reviews_and_bias
 
         return context
 
@@ -102,5 +102,3 @@ def ReviewFormView(request):
         obj.save()
         return HttpResponseRedirect('/review')
     return render(request, 'properties/review.html', {'properties': Property.objects.all()})
-
-
