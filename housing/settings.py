@@ -25,12 +25,13 @@ if os.path.isfile(dotenv_file):
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '@h+c_pq#)j^zxo-@bj3g1bzs&e3q4&3dlc05-oera+_4!*!!-*'
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+#SECRET_KEY = '@h+c_pq#)j^zxo-@bj3g1bzs&e3q4&3dlc05-oera+_4!*!!-*'
+SECRET_KEY = 'django-insecure-@h+c_pq#)j^zxo-@bj3g1bzs&e3q4&3dlc05-oera+_4!*!!-*'
+SESSION_COOKIE_SECURE = False
+SECURE_SSL_REDIRECT = False
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
