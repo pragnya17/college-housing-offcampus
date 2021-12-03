@@ -3,7 +3,7 @@
 
 {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <h2>Properties</h2>
+    <h2>Available Properties</h2>
 
     <br>
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">View Filters</button>
@@ -14,20 +14,25 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
     {% for property in filter.qs %}
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; margin: 1rem; padding: 0rem;">
+          <div class="card-header"><h5 style="margin: 0.2em;">{{property.title}}</h5></div>
             <div class="card-body">
-                <h5 class="card-title">{{property.title}}</h5>
+              <h5 class="card-title">Rating: X/5</h5>
                 <h6 class="card-subtitle mb-2 text-muted">${{property.total_price}}</h6>
                 <text class="card-text">{{property.address}}</text><br>
                 <text class="card-text">Distance: {{property.distance}} mi</text><br>
                 <text class="card-text">Free parking: {{property.parking}}</text><br>
                 <text class="card-text">Furnished: {{property.furnished}}</text><br>
                 <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
-                <form method = "post">{% csrf_token %}
-                    <input type="hidden" name="property" value={{property.id}}>
-                    <input type="submit" name = "myFav" value = "Favorite" class="button">
-                </form>
+            
+                
             </div>
+          <div class="card-footer text-muted">
+            <form method = "post" style="margin: 0.2em;" >{% csrf_token %}
+                <input type="hidden" name="property" value={{property.id}}>
+                <input type="submit" name = "myFav" value = "Favorite" class="button">
+            </form>
+          </div>          
         </div>
     {% endfor %}
     </div>
