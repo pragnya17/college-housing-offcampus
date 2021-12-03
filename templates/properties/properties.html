@@ -24,20 +24,19 @@
                 <text class="card-text">Free parking: {{property.parking}}</text><br>
                 <text class="card-text">Furnished: {{property.furnished}}</text><br>
                 <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
-            
-                
             </div>
           <div class="card-footer text-muted">
-            <form method = "post" style="margin: 0.2em;" >{% csrf_token %}
-                <input type="hidden" name="property" value={{property.id}}>
-                <input type="submit" name = "myFav" value = "Favorite" class="button">
-            </form>
+            <form method = "POST" action="{% url 'favorite_property' property.id %}" style="margin: 0.2em;" >
+              {% csrf_token %}
+              <input type="hidden" name="property" value={{property.id}}>
+              <button class="btn btn-outline-secondary" type='submit'>Favorite</button>
+          </form>
           </div>          
         </div>
     {% endfor %}
     </div>
     
-    <script>
+    <!-- <script>
         var PropertyListPage = {
             init: function() {
             this.$container = $('.property-container');
@@ -70,7 +69,7 @@
         $(document).ready(function() {
             PropertyListPage.init();
         });
-    </script>
+    </script> -->
 
 
 <!--Property Filter & Sorting Modal -->

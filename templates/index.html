@@ -51,28 +51,38 @@
         {% bootstrap_messages %}
         {% block content %}
         {% if user.is_authenticated %}
-        <h1>Welcome, {{ user.first_name }}!</h1>
+        <div style="text-align: center;">
+          <h1>Welcome, {{ user.first_name }}!</h1>
+          <a href="{% url 'review' %}"><button type="button" class="btn btn-primary">Publish a review</button></a>
+        </div>
         <br>
         <div class="container">
           <h2>Your Favorite Properties</h2>
-          {% for property in model %}
-          {% if property.favorite == True %}
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{property.title}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">${{property.total_price}}</h6>
-              <text class="card-text">{{property.address}}</text><br>
-              <text class="card-text">Distance: {{property.distance}} mi</text><br>
-              <text class="card-text">Free parking: {{property.parking}}</text><br>
-              <text class="card-text">Furnished: {{property.furnished}}</text><br>
-              <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
+          <!-- Below line sourced from: https://bootstrapcreative.com/pattern/responsive-card-deck-example/ -->
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+
+            {% for property in favorited %}
+                <div class="card" style="width: 18rem; margin: 1rem; padding: 0rem;">
+                  <div class="card-header"><h5 style="margin: 0.2em;">{{property.title}}</h5></div>
+                    <div class="card-body">
+                      <h5 class="card-title">Rating: X/5</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${{property.total_price}}</h6>
+                        <text class="card-text">{{property.address}}</text><br>
+                        <text class="card-text">Distance: {{property.distance}} mi</text><br>
+                        <text class="card-text">Free parking: {{property.parking}}</text><br>
+                        <text class="card-text">Furnished: {{property.furnished}}</text><br>
+                        <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
+                    </div>
+                  <div class="card-footer text-muted">
+                    <form method = "POST" action="{% url 'favorite_property' property.id %}" style="margin: 0.2em;" >
+                      {% csrf_token %}
+                      <input type="hidden" name="property" value={{property.id}}>
+                      <button class="btn btn-outline-secondary" type='submit'>Favorite</button>
+                  </form>
+                  </div>          
+                </div>
+            {% endfor %}
             </div>
-          </div>
-          {% endif %}
-          {% endfor %}
-        </div>
-        <div>
-          <a href="{% url 'review' %}"><button>Publish a review</button></a>
         </div>
         <!-- End of the dashboard stuff -->
         {% else %}
