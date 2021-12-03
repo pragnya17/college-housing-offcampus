@@ -1,8 +1,6 @@
 # Adapted from https://medium.com/@ksarthak4ever/django-custom-user-model-allauth-for-oauth-20c84888c318
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
-from django import forms
-from django.forms import TypedChoiceField, RadioSelect, IntegerField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 
