@@ -32,7 +32,7 @@
 <!--    </div>-->
     <form action="{% url 'review' %}" method="post">
         <fieldset id="property">
-            <legend>Choose a property to rate</legend>
+            <legend>Choose a property to review</legend>
             {% for each in properties %}
                 <input type="radio" name="property" value={{each.id}} required> {{ each.title }} <br>
             {% endfor %}
@@ -47,12 +47,11 @@
         <label for="noise">Noise Level (0-5):</label>
         <input type="number" min="0" max="5" id="noise" name="noise" required><br><br>
 
-        Review (anything additional you would like to express about this property): <br>
-        <textarea rows = "5" cols = "50" id="text_review" name="text_review">
-        </textarea><br>
+        Review: <br>
+        <textarea placeholder="Any additional comments?" rows = "5" cols = "50" id="text_review" name="text_review" style="margin-bottom: 1rem;"></textarea><br>
 
-        <button class="btn-outline-primary" button_type="submit" content="OK"> Submit </button>
-        <button class="btn-outline-primary" button_type="reset" input_type="reset" content="Reset"> Reset </button>
+        <button type="button" class="btn btn-success" button_type="submit" content="OK"> Submit </button>
+        <button type="button" class="btn btn-outline-secondary" button_type="reset" input_type="reset" content="Reset"> Reset </button>
     </form>
 
 <!--    <div class="container-fluid">-->

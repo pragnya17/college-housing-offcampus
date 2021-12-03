@@ -9,7 +9,7 @@
             <h5>There are currently {{count}} active forums</h5>
             <form method="POST" action="{% url 'forum:addInForum' %}">
                 {% csrf_token %}
-            <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Start a new forum</button>
+            <button class="btn btn-primary" style="width:fit-content; padding: 4px; margin:10px;">Start a new forum</button>
             </form>
         </h3>
             <div class="card-columns" style="margin: 20px;"></div>
@@ -54,7 +54,7 @@
             {%endfor%}
     {% else %}
         <h3>You must be signed in to see the forum!</h3> 
-        <a href="{% provider_login_url 'google' %}"><button style="margin-top: 1rem;">Sign In/Register</button></a>
+        <a href="{% provider_login_url 'google' %}"><button type="button" class="btn btn-primary" style="margin-top: 1rem;">Sign In/Register</button></a>
     {% endif %}
 </body>
 {% endblock %}
