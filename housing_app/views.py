@@ -101,5 +101,13 @@ def favorite_property(request, fav_id):
     property = get_object_or_404(Property, id=fav_id)
     user = request.user
     if request.method == 'POST':
-        user.fav_properties.add(property)
+        property.favorite.add(user)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def unfavorite_property(request, fav_id):
+    property = get_object_or_404(Property, id=fav_id)
+    user = request.user
+    if request.method == 'POST':
+        property.favorite.remove(user)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

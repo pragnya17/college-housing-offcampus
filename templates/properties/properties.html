@@ -27,51 +27,23 @@
                 <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
             </div>
           <div class="card-footer text-muted">
-            <form method = "POST" action="{% url 'favorite_property' property.id %}" style="margin: 0.2em;" >
-              {% csrf_token %}
-              <input type="hidden" name="property" value={{property.id}}>
-              <button class="btn btn-outline-secondary" type='submit'>Favorite</button>
-          </form>
+            {% if user in property.favorite.all %}
+              <form method = "POST" action="{% url 'unfavorite_property' property.id %}" style="margin: 0.2em;" >
+                {% csrf_token %}
+                <input type="hidden" name="property" value={{property.id}}>
+                <button class="btn btn-outline-secondary" type='submit'>Remove from Favorite</button>
+              </form>
+              {% else %}
+              <form method = "POST" action="{% url 'favorite_property' property.id %}" style="margin: 0.2em;" >
+                {% csrf_token %}
+                <input type="hidden" name="property" value={{property.id}}>
+                <button class="btn btn-outline-secondary" type='submit'>Favorite</button>
+              </form>
+            {% endif %}
           </div>          
         </div>
     {% endfor %}
     </div>
-    
-    <!-- <script>
-        var PropertyListPage = {
-            init: function() {
-            this.$container = $('.property-container');
-            this.render();
-            this.bindEvents();
-        },
-
-        render: function() {
-
-        },
-
-        bindEvents: function() {
-            $('.btn-favorite', this.$container).on('click', function(e) {
-                console.log('Hola');
-                e.preventDefault();
-
-                var self = $(this);
-                var url = $(this).attr('href');
-                $.getJSON(url, function(result) {
-                    if (result.success) {
-                            $('.glyphicon-star', self).toggleClass('active');
-                        }
-                    });
-
-                    return false;
-                });
-            }
-        };
-
-        $(document).ready(function() {
-            PropertyListPage.init();
-        });
-    </script> -->
-
 
 <!--Property Filter & Sorting Modal -->
 <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">

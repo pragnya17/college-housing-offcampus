@@ -74,11 +74,19 @@
                         <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
                     </div>
                   <div class="card-footer text-muted">
+                    {% if user in property.favorite.all %}
+                      <form method = "POST" action="{% url 'unfavorite_property' property.id %}" style="margin: 0.2em;" >
+                        {% csrf_token %}
+                        <input type="hidden" name="property" value={{property.id}}>
+                        <button class="btn btn-outline-secondary" type='submit'>Remove from Favorite</button>
+                      </form>
+                    {% else %}
                     <form method = "POST" action="{% url 'favorite_property' property.id %}" style="margin: 0.2em;" >
                       {% csrf_token %}
                       <input type="hidden" name="property" value={{property.id}}>
                       <button class="btn btn-outline-secondary" type='submit'>Favorite</button>
-                  </form>
+                    </form>
+                    {% endif %}
                   </div>          
                 </div>
             {% endfor %}
