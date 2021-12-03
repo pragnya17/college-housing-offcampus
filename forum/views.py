@@ -63,7 +63,12 @@ def addInForum(request):
     if request.method == 'POST':
         print(request.POST)
         form = CreateInForum(request.POST)
+        form.topic = request.POST.get('topic','')
+        form.description = request.POST.get('description','')
+        form.name = request.POST.get('name','')
+        print("Before if statement")
         if form.is_valid():
+            print("After if statement")
             form.save()
             return redirect('/forum')
     context ={'form':form}
