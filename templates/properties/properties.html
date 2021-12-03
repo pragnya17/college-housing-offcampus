@@ -3,49 +3,55 @@
 
 
 {% block content %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <h2>Available Properties</h2>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<h2>Available Properties</h2>
 
-    <br>
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">View Filters</button>
-    <a class="btn btn-outline-secondary" href="{% url 'properties' %}" role="button">Clear Filters</a>
-    <br><br>
+<br>
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">View Filters</button>
+<a class="btn btn-outline-secondary" href="{% url 'properties' %}" role="button">Clear Filters</a>
+<br><br>
 
-    <!-- Below line sourced from: https://bootstrapcreative.com/pattern/responsive-card-deck-example/ -->
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+<!-- Below line sourced from: https://bootstrapcreative.com/pattern/responsive-card-deck-example/ -->
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
-    {% for property in filter.qs %}
-        <div class="card" style="width: 18rem; margin: 1rem; padding: 0rem;">
-          <div class="card-header"><h5 style="margin: 0.2em;">{{property.title}}</h5></div>
-            <div class="card-body">
-              <h5 class="card-title">Rating: X/5</h5>
-              <h6 class="card-subtitle mb-2 text-muted">${{property.monthly_rent}}/month</h6>
-              <text class="card-text"><i>{{property.address}}</i></text><br>
-              <text class="card-text"><b>Distance to Grounds:</b> {{property.distance}} mi</text><br>
-              <text class="card-text"><b>Bedrooms:</b> {{ property.bedrooms}}</text><br>
-              <text class="card-text"><b>Bathrooms:</b> {{ property.bathrooms}}</text><br>
-              <text class="card-text"><b>Free Parking:</b> {{property.parking}}</text><br>
-              <text class="card-text"><b>Furnished:</b> {{property.furnished}}</text><br>
-                <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
-            </div>
-          <div class="card-footer text-muted">
-            {% if user in property.favorite.all %}
-              <form method = "POST" action="{% url 'unfavorite_property' property.id %}" style="margin: 0.2em;" >
-                {% csrf_token %}
-                <input type="hidden" name="property" value={{property.id}}>
-                <button class="btn btn-outline-secondary" type='submit'>Remove from Favorite</button>
-              </form>
-              {% else %}
-              <form method = "POST" action="{% url 'favorite_property' property.id %}" style="margin: 0.2em;" >
-                {% csrf_token %}
-                <input type="hidden" name="property" value={{property.id}}>
-                <button class="btn btn-outline-secondary" type='submit'>Favorite</button>
-              </form>
-            {% endif %}
-          </div>          
-        </div>
-    {% endfor %}
+  {% if filter.qs.exists %}
+  {% for property in filter.qs %}
+  <div class="card" style="width: 18rem; margin: 1rem; padding: 0rem;">
+    <div class="card-header">
+      <h5 style="margin: 0.2em;">{{property.title}}</h5>
     </div>
+    <div class="card-body">
+      <h5 class="card-title">Rating: X/5</h5>
+      <h6 class="card-subtitle mb-2 text-muted">${{property.monthly_rent}}/month</h6>
+      <text class="card-text"><i>{{property.address}}</i></text><br>
+      <text class="card-text"><b>Distance to Grounds:</b> {{property.distance}} mi</text><br>
+      <text class="card-text"><b>Bedrooms:</b> {{ property.bedrooms}}</text><br>
+      <text class="card-text"><b>Bathrooms:</b> {{ property.bathrooms}}</text><br>
+      <text class="card-text"><b>Free Parking:</b> {{property.parking}}</text><br>
+      <text class="card-text"><b>Furnished:</b> {{property.furnished}}</text><br>
+        <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
+    </div>
+    <div class="card-footer text-muted">
+      {% if user in property.favorite.all %}
+      <form method="POST" action="{% url 'unfavorite_property' property.id %}" style="margin: 0.2em;">
+        {% csrf_token %}
+        <input type="hidden" name="property" value={{property.id}}>
+        <button class="btn btn-outline-secondary" type='submit'>Remove from Favorite</button>
+      </form>
+      {% else %}
+      <form method="POST" action="{% url 'favorite_property' property.id %}" style="margin: 0.2em;">
+        {% csrf_token %}
+        <input type="hidden" name="property" value={{property.id}}>
+        <button class="btn btn-outline-secondary" type='submit'>Favorite</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <h4>No properties were found.</h4>
+  {% endif %}
+</div>
 
 <!--Property Filter & Sorting Modal -->
 <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
@@ -59,7 +65,6 @@
         <form method="GET">
           {{ filter.form|crispy }}
           <button type="submit" class="btn btn-primary">Search</button>
-          <input class="btn btn-secondary" type="reset" value="Reset">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         </form>
       </div>
