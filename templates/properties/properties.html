@@ -18,11 +18,13 @@
           <div class="card-header"><h5 style="margin: 0.2em;">{{property.title}}</h5></div>
             <div class="card-body">
               <h5 class="card-title">Rating: X/5</h5>
-                <h6 class="card-subtitle mb-2 text-muted">${{property.monthly_rent}}</h6>
-                <text class="card-text">{{property.address}}</text><br>
-                <text class="card-text">Distance: {{property.distance}} mi</text><br>
-                <text class="card-text">Free parking: {{property.parking}}</text><br>
-                <text class="card-text">Furnished: {{property.furnished}}</text><br>
+              <h6 class="card-subtitle mb-2 text-muted">${{property.monthly_rent}}/month</h6>
+              <text class="card-text"><i>{{property.address}}</i></text><br>
+              <text class="card-text"><b>Distance to Grounds:</b> {{property.distance}} mi</text><br>
+              <text class="card-text"><b>Bedrooms:</b> {{ property.bedrooms}}</text><br>
+              <text class="card-text"><b>Bathrooms:</b> {{ property.bathrooms}}</text><br>
+              <text class="card-text"><b>Free Parking:</b> {{property.parking}}</text><br>
+              <text class="card-text"><b>Furnished:</b> {{property.furnished}}</text><br>
                 <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
             </div>
           <div class="card-footer text-muted">
