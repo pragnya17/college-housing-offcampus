@@ -7,7 +7,7 @@
 <h2>Available Properties</h2>
 
 <br>
-<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">View Filters</button>
+<button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#filterModal">View Filters</button>
 <a class="btn btn-outline-secondary" href="{% url 'properties' %}" role="button">Clear Filters</a>
 <br><br>
 
@@ -64,7 +64,7 @@
       <div class="modal-body">
         <form method="GET">
           {{ filter.form|crispy }}
-          <button type="submit" class="btn btn-primary">Search</button>
+          <button type="submit" class="btn btn-success">Search</button>
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
         </form>
       </div>
