@@ -24,7 +24,7 @@ class PropertyFilter(django_filters.FilterSet):
         model = Property
 
         fields = {'title': ['icontains'],
-        'total_price': ['lte'],
+        'monthly_rent': ['lte'],
         'bedrooms': ['exact'],
         'bathrooms': ['exact'],
         }
