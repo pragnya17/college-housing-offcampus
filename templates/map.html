@@ -3,7 +3,7 @@
 {% block content %}
 
 <head>
-  <p>Look for properties using the map below. The orange houses indicate locations of each listed property, while pink markers indicate locations of properties you've searched for.</p>
+  <p>Look for properties using the map below. The green houses indicate locations of each listed property, while pink markers indicate locations of properties you've searched for.</p>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   <link rel="stylesheet" type="text/css" href="../static/map.css" />
 </head>
@@ -21,7 +21,7 @@
       var marker;
       var map;
       map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 38.034493639911936, lng: -78.50999182771713 },
+        center: { lat: 38.0345823469187, lng: -78.50129102484755 },
         zoom: 15,
       });
       const input = document.getElementById("search-bar");
