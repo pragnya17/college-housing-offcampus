@@ -7,6 +7,7 @@ from . import models
 from django.views.generic import ListView, DetailView
 from .models import *
 from .filters import PropertyFilter
+from django.contrib.auth.decorators import login_required
 
 
 class PropertiesListView(ListView):
@@ -16,18 +17,6 @@ class PropertiesListView(ListView):
         context = super().get_context_data(**kwargs)
         context['filter'] = PropertyFilter(self.request.GET, queryset=self.get_queryset())
         return context
-
-    def favorite_property(request):
-        model = Property.objects.all()
-        if (request.method == "POST"):
-            # print(request.POST.get("property", ""))
-            myProperty = get_object_or_404(Property, pk=request.POST.get("property", ""))
-            if myProperty.favorite:
-                myProperty.favorite = False
-            else:
-                myProperty.favorite = True
-            myProperty.save()
-        return render(request, "properties/properties.html", {'model': model})
 
 
 # Code sourced from https://stackoverflow.com/questions/51950416/reversemanytoonedescriptor-object-has-no-attribute-all
@@ -80,9 +69,13 @@ def map(request):
     model = Property.objects.all()
     return render(request, "map.html", {'model':model})
 
+
 def index(request):
-    model = Property.objects.all()
-    return render(request, "index.html", {'model':model})
+    if request.user.is_authenticated:
+        favorited = request.user.fav_properties.all()
+        return render(request, "index.html", {'favorited':favorited})
+    else:
+        return render(request, "index.html")
 
     # def get_context_data(self, **kwargs):
     #     # Call the base implementation first to get a context
@@ -102,3 +95,19 @@ def ReviewFormView(request):
         obj.save()
         return HttpResponseRedirect('/review')
     return render(request, 'properties/review.html', {'properties': Property.objects.all()})
+
+@login_required
+def favorite_property(request, fav_id):
+    property = get_object_or_404(Property, id=fav_id)
+    user = request.user
+    if request.method == 'POST':
+        property.favorite.add(user)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def unfavorite_property(request, fav_id):
+    property = get_object_or_404(Property, id=fav_id)
+    user = request.user
+    if request.method == 'POST':
+        property.favorite.remove(user)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

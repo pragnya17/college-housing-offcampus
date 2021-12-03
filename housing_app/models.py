@@ -6,7 +6,6 @@ from django.forms import TypedChoiceField, RadioSelect, IntegerField
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
 
-
 class UserManager(BaseUserManager):
 
   def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
@@ -61,7 +60,7 @@ class Property(models.Model):
     #id = models.BigAutoField(primary_key=True)
     title = models.CharField(max_length=200)
     description = models.CharField(max_length=75)
-    total_price = models.DecimalField(max_digits=7, decimal_places=2)
+    monthly_rent = models.DecimalField(max_digits=7, decimal_places=2)
     distance = models.DecimalField(max_digits=4, decimal_places=2, default=0)
     furnished = models.CharField(max_length=3, default="No")
     parking = models.CharField(max_length=20, default="No")
@@ -73,9 +72,9 @@ class Property(models.Model):
     services = models.TextField(default="")
     # avg_amenities = models.DecimalField(max_digits=1, decimal_places=0, default=5)
     amenities = models.TextField(default="")
-    favorite = models.BooleanField(default=False)
     floorplan_file_name = models.CharField(max_length=100, default="/static/floorplans/floorplan.jpg")
     picture_file_name = models.CharField(max_length=100, default="/static/pictures/sample_house.jpg")
+    favorite = models.ManyToManyField(User, related_name="fav_properties", blank=True)
 
     def __str__(self):
       if self.title == '':
@@ -128,10 +127,3 @@ class Review(models.Model):
 #     noise_level_rating = IntegerField(validators=[MaxValueValidator(5), MinValueValidator(0)])
 #
 
-
-
-#  TODO
-# class Review(models.Model):
-#     property = models.ForeignKey(Property, on_delete=models.CASCADE)
-#     review_text = models.TextField()
-#     upvotes = models.IntegerField(default=0)

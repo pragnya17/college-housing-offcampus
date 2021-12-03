@@ -51,39 +51,74 @@
         {% bootstrap_messages %}
         {% block content %}
         {% if user.is_authenticated %}
-        <h1>Welcome, {{ user.first_name }}!</h1>
+        <div style="text-align: center;">
+          <h1>Welcome, {{ user.first_name }}!</h1>
+          <a href="{% url 'review' %}"><button type="button" class="btn btn-primary">Publish a review</button></a>
+        </div>
         <br>
+        
+        <div class="row">
+          <div style="text-align:center"class="column">
+            <img src="/static/pictures/sold.gif" style="width:33%;">
+        </div>
         <div class="container">
           <h2>Your Favorite Properties</h2>
-          {% for property in model %}
-          {% if property.favorite == True %}
-          <div class="card" style="width: 18rem;">
-            <div class="card-body">
-              <h5 class="card-title">{{property.title}}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">${{property.total_price}}</h6>
-              <text class="card-text">{{property.address}}</text><br>
-              <text class="card-text">Distance: {{property.distance}} mi</text><br>
-              <text class="card-text">Free parking: {{property.parking}}</text><br>
-              <text class="card-text">Furnished: {{property.furnished}}</text><br>
-              <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
+          <!-- Below line sourced from: https://bootstrapcreative.com/pattern/responsive-card-deck-example/ -->
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+
+            {% for property in favorited %}
+                <div class="card" style="width: 18rem; margin: 1rem; padding: 0rem;">
+                  <div class="card-header"><h5 style="margin: 0.2em;">{{property.title}}</h5></div>
+                    <div class="card-body">
+                      <h5 class="card-title">Rating: {{property.avg_noise}}/5</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">${{property.monthly_rent}}/month</h6>
+                        <text class="card-text"><i>{{property.address}}</i></text><br>
+                        <text class="card-text"><b>Distance to Grounds:</b> {{property.distance}} mi</text><br>
+                        <text class="card-text"><b>Bedrooms:</b> {{ property.bedrooms}}</text><br>
+                        <text class="card-text"><b>Bathrooms:</b> {{ property.bathrooms}}</text><br>
+                        <text class="card-text"><b>Free Parking:</b> {{property.parking}}</text><br>
+                        <text class="card-text"><b>Furnished:</b> {{property.furnished}}</text><br>
+                        <a href="{% url 'property' property.id %}" class="card-link">View Property</a>
+                    </div>
+                  <div class="card-footer text-muted">
+                    {% if user in property.favorite.all %}
+                      <form method = "POST" action="{% url 'unfavorite_property' property.id %}" style="margin: 0.2em;" >
+                        {% csrf_token %}
+                        <input type="hidden" name="property" value={{property.id}}>
+                        <button class="btn btn-outline-secondary" type='submit'>Remove from Favorite</button>
+                      </form>
+                    {% else %}
+                    <form method = "POST" action="{% url 'favorite_property' property.id %}" style="margin: 0.2em;" >
+                      {% csrf_token %}
+                      <input type="hidden" name="property" value={{property.id}}>
+                      <button class="btn btn-outline-secondary" type='submit'>Favorite</button>
+                    </form>
+                    {% endif %}
+                  </div>          
+                </div>
+            {% endfor %}
             </div>
-          </div>
-          {% endif %}
-          {% endfor %}
-        </div>
-        <div>
-          <a href="{% url 'review' %}"><button>Publish a review</button></a>
         </div>
         <!-- End of the dashboard stuff -->
         {% else %}
-        <h3>Welcome to Off-Grounds Housing!</h3>
-        <!-- <h4>Sign in to get started!</h4> -->
+        <div class="container" style="margin-top:2rem; margin-bottom: 3rem;">
+          <div class="row">
+            <div class="col-3" style="text-align: center; margin-top: 1rem;">
+              <h1>Welcome to Off-Grounds Housing!</h1>
+              <a href="{% provider_login_url 'google' %}"><button style="margin-top: 1rem;">Sign In/Register</button></a>
+            </div>
+            <div class="col">
+              <img src="/static/welcome-image.jpg" width=100% style="margin-top: 1rem; margin-bottom: 1rem;">
+            </div>
+          </div>
+        </div>
+
+        <h4>What is Off-Grounds Housing?</h4>
         <p style="font-size: 1.2em;">Off-grounds Housing is for people looking to find reliable housing in the
-          UVA-Charlorlottesville Area. You can browse through our many housing options and their respective reviews
-          made by authentic indiviuals who have previous, personal experience living in these properties. If you're
+          UVA-Charlottesville Area. You can browse through our many housing options and their respective reviews
+          made by authentic individuals who have previous, personal experience living in these properties. If you're
           looking for a specific criteria or place, we have many filtering options and a map feature that helps you
-          find exactly what you need. You can even create an account to favorite and save properties, and post reviews
-          of your own!</p>
+          find exactly what you need. You can even create an account to favorite and save properties, and post reviews of your own!</p>
         {% endif %}
         {% endblock %}
       </div>
