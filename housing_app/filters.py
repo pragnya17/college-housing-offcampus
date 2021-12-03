@@ -5,8 +5,8 @@ from .models import Property
 class PropertyFilter(django_filters.FilterSet):
 
     sorting_options = (
-        ('total_price', 'Ascending price'),
-        ('-total_price', 'Descending price'),
+        ('monthly_rent', 'Ascending price'),
+        ('-monthly_rent', 'Descending price'),
         ('-furnished', 'Furnished'),
         ('furnished', 'Unfurnished'),
         ('-parking', 'Parking availability'),
@@ -19,7 +19,7 @@ class PropertyFilter(django_filters.FilterSet):
         model = Property
 
         fields = {'title': ['icontains'],
-        'total_price': ['lte'],
+        'monthly_rent': ['lte'],
         'bedrooms': ['exact'],
         'bathrooms': ['exact'],
         }
