@@ -102,5 +102,4 @@ def favorite_property(request, fav_id):
     user = request.user
     if request.method == 'POST':
         user.fav_properties.add(property)
-    response = redirect('/properties/')
-    return response
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
