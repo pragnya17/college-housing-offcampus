@@ -4,15 +4,12 @@
     {% if user.is_authenticated %}
         <form action="{% url 'forum:addInForum' %}" method="POST">
             {% csrf_token %}
-                <label for="topic">Title for your forum:</label>
-                <input id="topic" name="topic" required><br></br>
+                <input placeholder="Title of your post" id="topic" name="topic" required><br></br>
 
-                <label for="description">Body of your forum:</label>
-                <textarea rows = "5" cols = "50" id="description" name="description" required>
-                </textarea><br><br>
+                <textarea placeholder="Body of your post" rows="5" cols="50" id="description" name="description" required></textarea><br><br>
 
-                <label for="name">Your name, or write Anonymous:</label>
-                <input id="name" name="name" required><br><br>
+                <label for="name">Posting as:</label>
+                <input id="name" name="name" value={{user.first_name}} required><br><br>
 
                 <input type="submit" class="btn btn-success" value="Submit">
         </form>

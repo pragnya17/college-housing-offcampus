@@ -22,7 +22,7 @@
                         <div class="card-body container">
                                 <p>{{forum.description}}</p>
                             </h5>
-                            <p> By: {{forum.name}}</p>
+                            <p> - {{forum.name}}</p>
                             <div class="card-box container">
                             <div class="card-box container">
                             <div class="card-box container">
@@ -31,7 +31,7 @@
                                 {% if discussion.myForum.topic == forum.topic %}
                                 <div class="card-title"></div>
                                     <p>{{discussion.discuss}}</p>
-                                    <p>By: {{discussion.name}}</p>
+                                    <p>- {{discussion.name}}</p>
                                     <hr>
                                 {% endif %}
                             {% endfor %}
@@ -39,7 +39,7 @@
                                 {% csrf_token %}
                                     <input type="hidden" class="form-control" id="forum" name="forum" value={{forum.id}}>
                                     <p>Your reply: {{form.discuss}}</p>
-                                    <p>Write your name, or write Anonymous: {{form.name}}</p>
+                                    <label for="name">Replying as:</label><input id="name" name="name" value={{user.first_name}} required><br/><br/>
                                     <input type="submit" class="btn btn-success" value="Add your reply">
                             </form>
                             </div>

@@ -7,7 +7,7 @@
         {% csrf_token %}
         <input type="hidden" class="form-control" id="forum" name="forum" value={{myForum.id}}>
         <input type="text" class="form-control" id="Reply" label="Your Reply">
-        <input type="text" class="form-control" id="Name" label="Your Name">
+        <input type="text" class="form-control" id="Name" label="Replying as:" valu={{user.first_name}}>
         <input type="submit" class="btn btn-success" value="submit">
     </form>
     {% endif %}
