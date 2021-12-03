@@ -5,7 +5,7 @@ from . import views
 
 app_name = "forum"
 urlpatterns = [
-    path('', views.forumHome, name = "forum_home"), 
+    path('', views.forumHome, name = "forumHome"),
     path('addInForum/',views.addInForum,name='addInForum'),
-    path('addInDiscussion/',views.addInDiscussion,name='addInDiscussion'),
+    #path('addInDiscussion/',views.addInDiscussion,name='addInDiscussion'),
 ]

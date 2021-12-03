@@ -3,25 +3,28 @@
 {% block content %}
     {% if user.is_authenticated %}
     <body>
-        <h2 class="jumbotron">
-            Currently active forums: {{count}}
-            <h4>Post here to discuss housing options and to see if anyone is looking for roommates!</h4>
+        <h3 class="jumbotron">
+            Post here to discuss housing options and to see if anyone is looking for roommates!
+            <h5>There are currently {{count}} active forums</h5>
             <form method="POST" action="{% url 'forum:addInForum' %}">
                 {% csrf_token %}
-            <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Start a new discussion topic</button>
+            <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Start a new forum</button>
             </form>
-        </h2>
+        </h3>
             <div class="card-columns" style="margin: 20px;"></div>
-            
+
             {%for forum in forums %}
-                <div class="card box container">
+                <div class="card box container" style="background-color: paleturquoise; border-color:rgb(35, 45, 75);" >
                     <br>
                     <h5 class="card-title">
                         <h3>{{forum.topic}}</h3>
                         <div class="card-body container">
                                 <p>{{forum.description}}</p>
                             </h5>
-                            <p> By: {{forum.name}}</p>   
+                            <p> By: {{forum.name}}</p>
+                            <div class="card-box container">
+                            <div class="card-box container">
+                            <div class="card-box container">
                             <h3>Replies from other users</h3>
                             {% for discussion in myDiscussions %}
                                 {% if discussion.myForum.topic == forum.topic %}
@@ -31,18 +34,23 @@
                                     <hr>
                                 {% endif %}
                             {% endfor %}
-                        </div>
-                        </body>
-                            
-                            <form method="POST" action="{% url 'forum:addInDiscussion' %}">
+                            <form action="{% url 'forum:forumHome' %}" method="POST">
                                 {% csrf_token %}
-                            <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Add a reply</button>
+                                    <input type="hidden" class="form-control" id="forum" name="forum" value={{forum.id}}>
+                                    <p>Your reply: {{form.discuss}}</p>
+                                    <p>Write your name, or write Anonymous: {{form.name}}</p>
+                                    <input type="submit" class="btn btn-success" value="Add your reply">
                             </form>
+                            </div>
+                            </div>
+                            </div>
                         </div>
-                </div>
-            </div>
+
+
+
             <br>
-            
+</div>
             {%endfor%}
     {% endif %}
+</body>
 {% endblock %}
