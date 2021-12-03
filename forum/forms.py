@@ -6,9 +6,9 @@ class CreateInForum(ModelForm):
         model= myForum
         fields = "__all__"
         labels = {
-            'name': ('Your name, or write Anonymous'),
-            'topic': ('Title for your forum'),
-            'description': ('Body of your forum'),
+            'name': ('Posting As:'),
+            'topic': ('Title of your post'),
+            'description': ('Body of your post'),
         }
 
 class CreateInDiscussion(ModelForm):
@@ -18,5 +18,5 @@ class CreateInDiscussion(ModelForm):
         labels = {
             'myForum': ('Discussion topic'),
             'discuss': ('Your reply'),
-            'name': ('Your name'),
+            'name': ('Posting As:'),
         }
