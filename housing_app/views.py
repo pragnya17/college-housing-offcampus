@@ -8,6 +8,7 @@ from django.views.generic import ListView, DetailView
 from .models import *
 from .filters import PropertyFilter
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 class PropertiesListView(ListView):
@@ -93,6 +94,7 @@ def ReviewFormView(request):
         obj.noise_level_rating = request.POST.get('noise','')
         obj.text_review = request.POST.get('text_review', '')
         obj.save()
+        messages.success(request, "Your review was submitted!")
         return HttpResponseRedirect('/review')
     return render(request, 'properties/review.html', {'properties': Property.objects.all()})
 
