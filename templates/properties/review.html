@@ -30,7 +30,12 @@
 <!--        </div>-->
 <!--      </div>-->
 <!--    </div>-->
-    <form action="{% url 'review' %}" method="post">
+    <form class="alert alert-success" action="{% url 'review' %}" method="post">
+        <strong>Your review was submitted!</strong>
+        <div >
+            <strong>Error!</strong> A problem has been occurred while submitting your data.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
         <fieldset id="property">
             <legend>Choose a property to review</legend>
             {% for each in properties %}
