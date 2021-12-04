@@ -11,28 +11,7 @@
 
 <form method="post">
     {% csrf_token %}
-    <div>
-         Submit ratings for each of the factors from 0-5 (5 being the highest)
-    </div>
-<!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#propertyModal">-->
-<!--        Choose Property to rate-->
-<!--    </button>-->
-
-<!--    <div class="modal fade" id="propertyModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">-->
-<!--      <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-<!--          <div class="modal-header">-->
-<!--            <h5 class="modal-title" id="modalTitle">Choose Property to rate</h5>-->
-<!--            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Clear"></button>-->
-<!--          </div>-->
-<!--          <div class="modal-body">-->
-<!--            body of modal-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
     <form action="{% url 'review' %}" method="post">
-<!--        <strong>Your review was submitted!</strong>-->
         <fieldset id="property">
             <legend>Choose a property to review</legend>
             {% for each in properties %}
@@ -40,13 +19,14 @@
             {% endfor %}
             <br>
         </fieldset>
-        <label for="amenities">Amenities Rating (0-5):</label>
+        
+        <label for="amenities">Amenities Rating (0 is the worst, 5 is the best):</label><br>
         <input type="number" min="0" max="5" id="amenities" name="amenities" required><br><br>
 
-        <label for="services">Services (0-5):</label>
+        <label for="services">Services (0 is the worst, 5 is the best):</label><br>
         <input type="number" min="0" max="5" id="services" name="services" required><br><br>
 
-        <label for="noise">Noise Level (0-5):</label>
+        <label for="noise">Noise Level (0 is the quietest, 5 is the noisiest):</label><br>
         <input type="number" min="0" max="5" id="noise" name="noise" required><br><br>
 
         Review: <br>
