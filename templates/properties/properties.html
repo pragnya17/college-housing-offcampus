@@ -36,13 +36,13 @@
       <form method="POST" action="{% url 'unfavorite_property' property.id %}" style="margin: 0.2em;">
         {% csrf_token %}
         <input type="hidden" name="property" value={{property.id}}>
-        <button class="btn btn-outline-secondary" type='submit'>Remove from Favorite</button>
+        <button class="btn btn-outline-danger" type='submit'>Remove from Favorite</button>
       </form>
       {% else %}
       <form method="POST" action="{% url 'favorite_property' property.id %}" style="margin: 0.2em;">
         {% csrf_token %}
         <input type="hidden" name="property" value={{property.id}}>
-        <button class="btn btn-outline-secondary" type='submit'>Favorite</button>
+        <button class="btn btn-outline-success" type='submit'>Favorite</button>
       </form>
       {% endif %}
     </div>
