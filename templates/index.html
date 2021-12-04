@@ -65,8 +65,11 @@
         <div class="container" style="margin-top: 2rem;">
           <h2>Your Favorite Properties</h2>
           <!-- Below line sourced from: https://bootstrapcreative.com/pattern/responsive-card-deck-example/ -->
+          {% if favorited.exists %}
+          {% else %}
+          <p style="font-size: 20px">You currently have no favorite properties. Favorite properties under the listings tab to add them to your dashboard.</p>
+          {%endif%}
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
-
             {% for property in favorited %}
                 <div class="card" style="width: 18rem; margin: 1rem; padding: 0rem;">
                   <div class="card-header"><h5 style="margin: 0.2em;">{{property.title}}</h5></div>
