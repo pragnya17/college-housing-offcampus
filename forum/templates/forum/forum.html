@@ -39,7 +39,7 @@
                                 {% csrf_token %}
                                     <input type="hidden" class="form-control" id="forum" name="forum" value={{forum.id}}>
                                     <p>Your reply: {{form.discuss}}</p>
-                                    <label for="name">Replying as:</label><input id="name" name="name" value={{user.first_name}} required><br/><br/>
+                                    <label for="name">Replying as: </label><input id="name" name="name" value={{user.first_name}} required><br/><br/>
                                     <input type="submit" class="btn btn-success" value="Add your reply">
                             </form>
                             </div>
