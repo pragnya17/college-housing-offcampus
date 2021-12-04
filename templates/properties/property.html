@@ -13,7 +13,7 @@
                 No Overall Property Ratings available yet
             {% else %}
                 {{ avg_overall }} / 5 <br>
-                0 indicates the worst property, 5 indicates the best property
+                (0 indicates the worst property, 5 indicates the best property)
             {% endif %}</TD>
          </TR>
         <TR style="font-size:17px"><TD><b>Website:</b></TD>
@@ -50,35 +50,35 @@
     <h5>Ratings for this property:</h5>
     <TABLE>
         <TR>
-            <TD><b>Overall Property Rating:</b></TD>
-            <TD>{% if avg_overall == -1 %}
+            <TD>Overall Property Rating:</TD>
+            <TD colspan="2">{% if avg_overall == -1 %}
                 No Overall Property Ratings available yet
             {% else %}
                 {{ avg_overall }} / 5 <br>
-                0 indicates the worst property, 5 indicates the best property
+                (0 indicates the worst property, 5 indicates the best property)
             {% endif %}</TD>
          </TR>
         <TR>
             <TD>Average Ratings for Services:</TD>
-            <TD>{% if avg_service == -1 %}
+            <TD colspan="2">{% if avg_service == -1 %}
                 No Overall Property Ratings available yet
             {% else %}
                 {{ avg_service }} / 5 <br>
-                0 indicates the worst services, 5 indicates the best services
+                (0 indicates the worst services, 5 indicates the best services)
             {% endif %}</TD>
          </TR>
          <TR>
             <TD>Average Ratings for Amenities:</TD>
-            <TD>{% if avg_amenities == -1 %}
+            <TD colspan="2">{% if avg_amenities == -1 %}
                 No ratings available for Amenities yet
             {% else %}
                 {{ avg_amenities }} / 5 <br>
-                0 indicates the worst amenities, 5 indicates the best amenities
+                (0 indicates the worst amenities, 5 indicates the best amenities)
             {% endif %}</TD>
          </TR>
          <TR>
             <TD>Average Ratings for Noise:</TD>
-            <TD>{% if avg_noise == -1 %}
+            <TD colspan="2">{% if avg_noise == -1 %}
                 No ratings available for Noise yet
             {% else %}
                 {{ avg_noise }} / 5 <br>
