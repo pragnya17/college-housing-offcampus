@@ -41,7 +41,7 @@
     <h5>Ratings for this property:</h5>
     <TABLE>
         <TR>
-            <TD><b>Average Ratings for Services:</b></TD>
+            <TD>Average Ratings for Services:</TD>
             <TD>{% if avg_service == -1 %}
                 No ratings available for Services yet
             {% else %}
@@ -49,7 +49,7 @@
             {% endif %}</TD>
          </TR>
          <TR>
-            <TD><b>Average Ratings for Amenities:</b></TD>
+            <TD>Average Ratings for Amenities:</TD>
             <TD>{% if avg_amenities == -1 %}
                 No ratings available for Amenities yet
             {% else %}
@@ -57,7 +57,7 @@
             {% endif %}</TD>
          </TR>
          <TR>
-            <TD><b>Average Ratings for Noise:</b></TD>
+            <TD>Average Ratings for Noise:</TD>
             <TD>{% if avg_noise == -1 %}
                 No ratings available for Noise yet
             {% else %}
@@ -65,6 +65,8 @@
             {% endif %}</TD>
          </TR>
     </TABLE>
+
+    <br>
 
     <h5>Reviews about this property:</h5>
     <p>Reviews outlined in red are flagged as biased reviews!</p>

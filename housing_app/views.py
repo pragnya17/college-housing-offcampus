@@ -34,25 +34,30 @@ class PropertiesDetailView(DetailView):
         reviews = Review.objects.filter(property_id=property_id)
         len_reviews = len(reviews)
         if len_reviews > 0:
+            overall_sum = 0
             amenities_sum = 0
             service_sum = 0
             noise_sum = 0
             text_reviews_and_bias = {}
             for review in reviews:
+                overall_sum += review.overall_rating
                 amenities_sum += review.amenities_rating
                 service_sum += review.services_rating
                 noise_sum += review.noise_level_rating
                 text_reviews_and_bias[review.text_review] = review.biased_review
+            avg_overall = overall_sum/len_reviews    
             avg_amenities = amenities_sum / len_reviews
             avg_service = service_sum / len_reviews
             avg_noise = noise_sum / len_reviews
         else:
         # no ratings available yet
+            avg_overall = -1
             avg_amenities = -1
             avg_service = -1
             avg_noise = -1
             text_reviews_and_bias = []
 
+        context['avg_overall'] = round(avg_overall, 2)
         context['avg_amenities'] = round(avg_amenities, 2)
         context['avg_service'] = round(avg_service, 2)
         context['avg_noise'] = round(avg_noise, 2)
@@ -89,6 +94,7 @@ def ReviewFormView(request):
     if request.method == 'POST':
         obj = Review()
         obj.property_id= request.POST.get('property','')
+        obj.overall_rating = request.POST.get('overall','')
         obj.amenities_rating = request.POST.get('amenities','')
         obj.services_rating = request.POST.get('services','')
         obj.noise_level_rating = request.POST.get('noise','')
