@@ -20,7 +20,6 @@ class PropertiesListView(ListView):
         return context
 
 
-# Code sourced from https://stackoverflow.com/questions/51950416/reversemanytoonedescriptor-object-has-no-attribute-all
 class PropertiesDetailView(DetailView):
     model = Property
 
@@ -28,7 +27,7 @@ class PropertiesDetailView(DetailView):
         context = super(PropertiesDetailView, self).get_context_data(**kwargs)
 
         # Sourced from https://www.valentinog.com/blog/detail/
-        # get property object's title and find all the matchin ratings for that property
+        # get property object's title and find all the matching ratings for that property
 
         property_id = kwargs.get("object").id
         reviews = Review.objects.filter(property_id=property_id)
