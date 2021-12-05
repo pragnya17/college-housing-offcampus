@@ -2,13 +2,13 @@
 
 {% block content %}
     <p><img style="float:right;"src="{{ property.picture_file_name }}" width=40%></p>
-    <TABLE BORDER="0" Width=50%  CELLPADDING="5" CELLSPACING="3">
+    <TABLE BORDER="0" Width=55%  CELLPADDING="5" CELLSPACING="3">
         <TR>
            <TH style="text-align:left;font-size:50px"COLSPAN="2"> <u>{{ property.title }}</u>
            </TH>
         </TR>
         <TR>
-            <TD><b>Overall Property Rating:</b></TD>
+            <TD style="width:20%"><b>Overall Rating:</b></TD>
             <TD>{% if avg_overall == -1 %}
                 No Overall Property Ratings available yet
             {% else %}
@@ -52,7 +52,7 @@
         <TR>
             <TD valign="top"><b>Overall Property Rating:</b></TD>
             <TD colspan="2">{% if avg_overall == -1 %}
-                No Overall Property Ratings available yet
+                No ratings for Overall Property available yet
             {% else %}
                 {{ avg_overall }} / 5 <br>
                 <i>(0 indicates the worst property, 5 indicates the best property)</i>
@@ -61,7 +61,7 @@
         <TR>
             <TD valign="top"><b>Average Ratings for Services:</b></TD>
             <TD colspan="2">{% if avg_service == -1 %}
-                No Overall Property Ratings available yet
+                No ratings for Services available yet
             {% else %}
                 {{ avg_service }} / 5 <br>
                 <i>(0 indicates the worst services, 5 indicates the best services)</i>
