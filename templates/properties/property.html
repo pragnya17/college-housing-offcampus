@@ -1,63 +1,94 @@
 {% extends "index.html" %}
 
 {% block content %}
-<p><img style="float:right;"src="{{ property.picture_file_name }}" width=40%></p>
-<TABLE BORDER="0" Width=50%  CELLPADDING="5" CELLSPACING="3">
-    <TR>
-       <TH style="text-align:left;font-size:50px"COLSPAN="2"> <u>{{ property.title }}</u>
-       </TH> 
-    </TR>
-    <TR style="font-size:17px"><TD><b>Website:</b></TD>
-        <TD>{{ property.description|urlize }}</TD></TR>
-    <TR>
-       <TD><b>Price:</b></TD>
-       <TD>${{ property.monthly_rent }}/month</TD>
-    </TR>
-    <TR>
-       <TD><b>Bedrooms:</b></TD>
-       <TD>{{ property.bedrooms}}</TD>
-    </TR>
-    <TR>
-        <TD><b>Bathrooms:</b></TD>
-        <TD>{{ property.bathrooms}}</TD>
-     </TR>
-     <TR>
-        <TD><b>Services:</b></TD>
-        <TD>{{ property.services}}</TD>
-     </TR>
-     <TR>
-        <TD><b>Amenities:</b></TD>
-        <TD>{{ property.amenities}}</TD>
-     </TR>
-     <TR>
-        <TD><b>Average Ratings for Services:</b></TD>
-        <TD>{% if avg_service == -1 %}
-            No ratings available for Services yet
-        {% else %}
-            {{ avg_service }}
-        {% endif %}</TD>
-     </TR>
-     <TR>
-        <TD><b>Average Ratings for Amenities:</b></TD>
-        <TD>{% if avg_amenities == -1 %}
-            No ratings available for Amenities yet
-        {% else %}
-            {{ avg_amenities }}
-        {% endif %}</TD>
-     </TR>
-     <TR>
-        <TD><b>Average Ratings for Noise:</b></TD>
-        <TD>{% if avg_noise == -1 %}
-            No ratings available for Noise yet
-        {% else %}
-            {{ avg_noise }}
-        {% endif %}</TD>
-     </TR>
- </TABLE>
-<br>
-<div>
-    <b>Floorplan:</b> <img src="{{ property.floorplan_file_name }}" width="60%"/>
-</div>
+    <p><img style="float:right;"src="{{ property.picture_file_name }}" width=40%></p>
+    <TABLE BORDER="0" Width=50%  CELLPADDING="5" CELLSPACING="3">
+        <TR>
+           <TH style="text-align:left;font-size:50px"COLSPAN="2"> <u>{{ property.title }}</u>
+           </TH>
+        </TR>
+        <TR>
+            <TD><b>Overall Property Rating:</b></TD>
+            <TD>{% if avg_overall == -1 %}
+                No Overall Property Ratings available yet
+            {% else %}
+                {{ avg_overall }} / 5 <br>
+                <i>(0 indicates the worst property, 5 indicates the best property)</i>
+            {% endif %}</TD>
+         </TR>
+        <TR style="font-size:17px"><TD><b>Website:</b></TD>
+            <TD>{{ property.description|urlize }}</TD></TR>
+        <TR>
+           <TD><b>Price:</b></TD>
+           <TD>${{ property.monthly_rent }}/month</TD>
+        </TR>
+        <TR>
+           <TD><b>Bedrooms:</b></TD>
+           <TD>{{ property.bedrooms}}</TD>
+        </TR>
+        <TR>
+            <TD><b>Bathrooms:</b></TD>
+            <TD>{{ property.bathrooms}}</TD>
+         </TR>
+         <TR>
+            <TD><b>Services:</b></TD>
+            <TD>{{ property.services}}</TD>
+         </TR>
+         <TR>
+            <TD><b>Amenities:</b></TD>
+            <TD>{{ property.amenities}}</TD>
+         </TR>
+     </TABLE>
+    <br>
+
+
+    <div>
+        <b>Floorplan:</b> <img src="{{ property.floorplan_file_name }}" width="60%"/>
+    </div>
+
+
+    <h5>Ratings for this property:</h5>
+    <TABLE>
+        <TR>
+            <TD valign="top"><b>Overall Property Rating:</b></TD>
+            <TD colspan="2">{% if avg_overall == -1 %}
+                No Overall Property Ratings available yet
+            {% else %}
+                {{ avg_overall }} / 5 <br>
+                <i>(0 indicates the worst property, 5 indicates the best property)</i>
+            {% endif %}</TD>
+         </TR>
+        <TR>
+            <TD valign="top"><b>Average Ratings for Services:</b></TD>
+            <TD colspan="2">{% if avg_service == -1 %}
+                No Overall Property Ratings available yet
+            {% else %}
+                {{ avg_service }} / 5 <br>
+                <i>(0 indicates the worst services, 5 indicates the best services)</i>
+            {% endif %}</TD>
+         </TR>
+         <TR>
+             <TD valign="top"><b>Average Ratings for Amenities:</b></TD>
+            <TD colspan="2">{% if avg_amenities == -1 %}
+                No ratings available for Amenities yet
+            {% else %}
+                {{ avg_amenities }} / 5 <br>
+                <i>(0 indicates the worst amenities, 5 indicates the best amenities)</i>
+            {% endif %}</TD>
+         </TR>
+         <TR>
+             <TD valign="top"><b>Average Ratings for Noise:</b></TD>
+            <TD colspan="2">{% if avg_noise == -1 %}
+                No ratings available for Noise yet
+            {% else %}
+                {{ avg_noise }} / 5 <br>
+                <i>(0 indicates the quietest, 5 indicates the noisiest)</i>
+            {% endif %}</TD>
+         </TR>
+    </TABLE>
+
+    <br>
+
     <h5>Reviews about this property:</h5>
     <p>Reviews outlined in red are flagged as biased reviews!</p>
     {%for key, value in text_reviews_and_bias.items%}
