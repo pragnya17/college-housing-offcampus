@@ -33,7 +33,22 @@
         <textarea placeholder="Any additional comments?" rows = "5" cols = "50" id="text_review" name="text_review" style="margin-bottom: 1rem;" required></textarea><br>
 
         <button class="btn btn-success" button_type="submit" content="OK"> Submit </button>
-        <button class="btn btn-outline-secondary" button_type="reset" input_type="reset" content="Reset"> Reset </button>
+<!-- sourced from https://stackoverflow.com/questions/40980932/reset-button-not-working-in-the-form-after-form-submit -->
+<!--        https://stackoverflow.com/questions/2554116/how-to-clear-radio-button-in-javascript -->
+        <script>
+            function customReset()
+            {
+                var properties = document.getElementsByName("property");
+                for(var i=0;i<properties.length;i++)
+                   proerties[i].checked = false;
+                document.getElementById("overall").value = "";
+                document.getElementById("amenities").value = "";
+                document.getElementById("services").value = "";
+                document.getElementById("noise").value = "";
+            }
+        </script>
+
+        <button class="btn btn-outline-secondary" name="reset" input_type="reset" onclick="customReset();"> Reset </button>
     </form>
 
     <a href="{% url 'properties' %}">Back to Listings</a>
