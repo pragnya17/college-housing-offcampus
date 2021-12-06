@@ -92,19 +92,19 @@
     <h5>Reviews about this property (Total: {{ num_reviews }})</h5>
     <p>Reviews outlined in red are flagged as biased reviews!</p>
     {%for key, value in text_reviews_and_bias.items%}
-            {% if value == True %}
-                <div class="card" style="border-color:red">
-                    <div class="card-body" style="border-color:red">
-                        <text class="card-text" style="color:red">{{key}}</text><br>
-                    </div>
+        {% if value == True %}
+            <div class="card" style="border-color:red">
+                <div class="card-body" style="border-color:red">
+                    <text class="card-text" style="color:red">{{key}}</text><br>
                 </div>
-            {% else %}
-                <div class="card">
-                    <div class="card-body">
-                        <text class="card-text">{{key}}</text><br>
-                    </div>
+            </div>
+        {% else %}
+            <div class="card">
+                <div class="card-body">
+                    <text class="card-text">{{key}}</text><br>
                 </div>
-            {% endif %}
+            </div>
+        {% endif %}
     {% endfor %}
 
     <a href="{% url 'properties' %}">Back to Listings</a>
