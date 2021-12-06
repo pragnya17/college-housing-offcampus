@@ -1,5 +1,6 @@
 {% extends "index.html" %}
 <script src="jquery/jquery.js"></script>
+{% load socialaccount %}
 {% load bootstrap5 %}
 {% bootstrap_javascript %}
 
@@ -7,6 +8,7 @@
 {% bootstrap_messages %}
 
 {% block content %}
+{% if user.is_authenticated %}
     <form action="{% url 'review' %}" method="post">
         {% csrf_token %}
 <!--        <fieldset id="property">-->
@@ -55,5 +57,8 @@
     </form>
 
     <a href="{% url 'properties' %}">Back to Listings</a>
+
+    {% else %}
+    <h4>You must sign in before posting a review!</h4>
 
 {% endblock %}
