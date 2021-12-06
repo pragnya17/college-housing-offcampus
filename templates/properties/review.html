@@ -9,16 +9,32 @@
 {% block content %}
     <form action="{% url 'review' %}" method="post">
         {% csrf_token %}
-        <fieldset id="property">
-            <legend>Choose a property to review</legend>
-            {% for each in properties %}
-                <input type="radio" name="property" value={{each.id}} required> {{ each.title }} <br>
-                <div class="invalid-feedback">
-                    Please select a valid state.
-                </div>
-            {% endfor %}
-            <br>
-        </fieldset>
+<!--        <fieldset id="property">-->
+<!--            <legend>Choose a property to review</legend>-->
+<!--            {% for each in properties %}-->
+<!--                <input type="radio" name="property" value={{each.id}} required> {{ each.title }} <br>-->
+<!--                <div class="invalid-feedback">-->
+<!--                    Please select a valid state.-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--            <br>-->
+<!--        </fieldset>-->
+
+
+        <label for="property" class="form-label">Property</label>
+            <select class="form-select" id="property" required>
+              <option selected disabled value="">Choose...</option>
+                {% for each in properties %}
+                    <option value={{each.id}}> {{ each.title }} </option>
+                    <div class="invalid-feedback">
+                        Please select a valid property.
+                    </div>
+               {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid state.
+            </div>
+
 
 
         <label for="overall">Overall Rating (0 is the worst, 5 is the best):</label><br>
