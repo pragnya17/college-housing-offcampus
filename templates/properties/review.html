@@ -10,8 +10,8 @@
 {% block content %}
 
 <!--<form method="post">-->
-    {% csrf_token %}
     <form action="{% url 'review' %}" method="post">
+        {% csrf_token %}
         <fieldset id="property">
             <legend>Choose a property to review</legend>
             {% for each in properties %}
