@@ -57,11 +57,11 @@
 
 {% block content %}
 
-<form method="post">
-    {% csrf_token %}
-    <div>
-         Submit ratings for each of the factors from 0-5 (5 being the highest)
-    </div>
+<!--<form method="post">-->
+<!--    -->
+<!--    <div>-->
+<!--         Submit ratings for each of the factors from 0-5 (5 being the highest)-->
+<!--    </div>-->
 <!--    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#propertyModal">-->
 <!--        Choose Property to rate-->
 <!--    </button>-->
@@ -80,6 +80,7 @@
 <!--      </div>-->
 <!--    </div>-->
     <form action="{% url 'review' %}" method="post">
+        {% csrf_token %}
         <fieldset id="property">
             <legend>Choose a property to review</legend>
             {% for each in properties %}
@@ -108,5 +109,5 @@
 <!--    </div>-->
 
     <a href="{% url 'properties' %}">Back to Listings</a>
-</form>
+<!--</form>-->
 {% endblock %}
