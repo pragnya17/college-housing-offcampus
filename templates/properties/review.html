@@ -1,5 +1,4 @@
 {% extends "index.html" %}
-{% include 'messages.html' %}
 <script src="jquery/jquery.js"></script>
 {% load bootstrap5 %}
 {% bootstrap_javascript %}
@@ -8,17 +7,32 @@
 {% bootstrap_messages %}
 
 {% block content %}
-
-<!--<form method="post">-->
     <form action="{% url 'review' %}" method="post">
         {% csrf_token %}
-        <fieldset id="property">
-            <legend>Choose a property to review</legend>
-            {% for each in properties %}
-                <input type="radio" name="property" value={{each.id}} required> {{ each.title }} <br>
-            {% endfor %}
-            <br>
-        </fieldset>
+<!--        <fieldset id="property">-->
+<!--            <legend>Choose a property to review</legend>-->
+<!--            {% for each in properties %}-->
+<!--                <input type="radio" name="property" value={{each.id}} required> {{ each.title }} <br>-->
+<!--                <div class="invalid-feedback">-->
+<!--                    Please select a valid state.-->
+<!--                </div>-->
+<!--            {% endfor %}-->
+<!--            <br>-->
+<!--        </fieldset>-->
+
+
+        <label for="property" class="form-label">Property</label>
+            <select class="form-select" id="property" required>
+              <option selected disabled value="">Choose...</option>
+                {% for each in properties %}
+                    <option value={{each.id}}> {{ each.title }} </option>
+               {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+              Please select a valid state.
+            </div>
+
+        <br>
 
         <label for="overall">Overall Rating (0 is the worst, 5 is the best):</label><br>
         <input type="number" min="0" max="5" id="overall" name="overall" required><br><br>
@@ -29,16 +43,15 @@
         <label for="services">Services (0 is the worst, 5 is the best):</label><br>
         <input type="number" min="0" max="5" id="services" name="services" required><br><br>
 
-        <label for="noise">Noise Level (0 is the noisiest, 5 is the quietest):</label><br>
+        <label for="noise">Noise Level (0 is the quietest, 5 is the noisiest):</label><br>
         <input type="number" min="0" max="5" id="noise" name="noise" required><br><br>
 
         Review: <br>
-        <textarea placeholder="Any additional comments?" rows = "5" cols = "50" id="text_review"
-                  name="text_review" style="margin-bottom: 1rem;" required></textarea><br>
+        <textarea placeholder="Any additional comments?" rows = "5" cols = "50" id="text_review" name="text_review" style="margin-bottom: 1rem;" required></textarea><br>
 
         <button class="btn btn-success" button_type="submit" content="OK"> Submit </button>
-        <button class="btn btn-outline-secondary" input_type="button" content="Reset"
-                onClick="this.form.reset()"> Reset </button>
+        <a href="{% url 'review' %}"><button type="button" class="btn btn-outline-secondary">Reset</button></a>
+
     </form>
 
     <a href="{% url 'properties' %}">Back to Listings</a>
