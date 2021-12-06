@@ -9,7 +9,7 @@
 
 {% block content %}
 
-<!--<form method="post">-->
+<form method="post">
     <form action="{% url 'review' %}" method="post">
         {% csrf_token %}
         <fieldset id="property">
@@ -40,6 +40,7 @@
         <button class="btn btn-outline-secondary" input_type="button" content="Reset"
                 onClick="this.form.reset()"> Reset </button>
     </form>
+</form>
 
     <a href="{% url 'properties' %}">Back to Listings</a>
 
