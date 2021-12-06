@@ -82,14 +82,14 @@
                 No ratings available for Noise yet
             {% else %}
                 {{ avg_noise }} / 5 <br>
-                <i>(0 indicates the quietest, 5 indicates the noisiest)</i>
+                <i>(0 indicates the noisiest, 5 indicates the quietest)</i>
             {% endif %}</TD>
          </TR>
     </TABLE>
 
     <br>
 
-    <h5>Reviews about this property:</h5>
+    <h5>Reviews about this property (Total: {{ num_reviews }})</h5>
     <p>Reviews outlined in red are flagged as biased reviews!</p>
     {%for key, value in text_reviews_and_bias.items%}
             {% if value == True %}
