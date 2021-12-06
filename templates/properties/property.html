@@ -8,14 +8,37 @@
            </TH>
         </TR>
         <TR>
+            <TD colspan="2">
+                {% if user.is_authenticated %}
+                {% if user in property.favorite.all %}
+                <form method="POST" action="{% url 'unfavorite_property' property.id %}" style="margin: 0.2em;">
+                    {% csrf_token %}
+                    <input type="hidden" name="property" value={{property.id}}>
+                    <button class="btn btn-outline-danger" type='submit'>Remove from Favorite</button>
+                </form>
+                {% else %}
+                <form method="POST" action="{% url 'favorite_property' property.id %}" style="margin: 0.2em;">
+                    {% csrf_token %}
+                    <input type="hidden" name="property" value={{property.id}}>
+                    <button class="btn btn-outline-success" type='submit'>Favorite</button>
+                </form>
+                {% endif %}
+                {% endif %}
+            </TD>
+        </TR>
+        <TR>
             <TD style="width:20%"><b>Overall Rating:</b></TD>
             <TD>{% if avg_overall == -1 %}
-                No Overall Property Ratings available yet
+                No Overall Property Rating available yet
             {% else %}
-                {{ avg_overall }} / 5 <br>
-                <i>(0 indicates the worst property, 5 indicates the best property)</i>
+                <h4 style="margin-bottom: 0em;">{{ avg_overall }} / 5</h4>
             {% endif %}</TD>
          </TR>
+        <TR>
+            <TD colspan="2">
+                <i>(0 indicates the worst property, 5 indicates the best property)</i>
+            </TD>
+        </TR>
         <TR style="font-size:17px"><TD><b>Website:</b></TD>
             <TD>{{ property.description|urlize }}</TD></TR>
         <TR>
@@ -55,36 +78,52 @@
                 No ratings for Overall Property available yet
             {% else %}
                 {{ avg_overall }} / 5 <br>
-                <i>(0 indicates the worst property, 5 indicates the best property)</i>
             {% endif %}</TD>
          </TR>
+        <TR style="margin-bottom: 1rem;">
+            <TD colspan="2">
+                <i style="font-size: 0.8rem;">(0 indicates the worst property, 5 indicates the best property)</i>
+            </TD>
+        </TR>
         <TR>
             <TD valign="top"><b>Average Ratings for Services:</b></TD>
             <TD colspan="2">{% if avg_service == -1 %}
                 No ratings for Services available yet
             {% else %}
                 {{ avg_service }} / 5 <br>
-                <i>(0 indicates the worst services, 5 indicates the best services)</i>
             {% endif %}</TD>
          </TR>
-         <TR>
+        <TR>
+            <TD colspan="2">
+                <i style="font-size: 0.8rem;">(0 indicates the worst services, 5 indicates the best services)</i>
+            </TD>
+        </TR>
+        <TR>
              <TD valign="top"><b>Average Ratings for Amenities:</b></TD>
             <TD colspan="2">{% if avg_amenities == -1 %}
                 No ratings available for Amenities yet
             {% else %}
                 {{ avg_amenities }} / 5 <br>
-                <i>(0 indicates the worst amenities, 5 indicates the best amenities)</i>
             {% endif %}</TD>
-         </TR>
+        </TR>
+        <TR>
+            <TD colspan="2">
+                <i style="font-size: 0.8rem;">(0 indicates the worst amenities, 5 indicates the best amenities)</i>
+            </TD>
+        </TR>
          <TR>
              <TD valign="top"><b>Average Ratings for Noise:</b></TD>
             <TD colspan="2">{% if avg_noise == -1 %}
                 No ratings available for Noise yet
             {% else %}
                 {{ avg_noise }} / 5 <br>
-                <i>(0 indicates the quietest, 5 indicates the noisiest)</i>
             {% endif %}</TD>
          </TR>
+         <TR>
+            <TD colspan="2">
+                <i style="font-size: 0.8rem;">(0 indicates the noisiest, 5 indicates the quietest)</i>
+            </TD>
+        </TR>
     </TABLE>
 
     <br>
@@ -93,13 +132,13 @@
     <p>Reviews outlined in red are flagged as biased reviews!</p>
     {%for key, value in text_reviews_and_bias.items%}
             {% if value == True %}
-                <div class="card" style="border-color:red">
+                <div class="card" style="border-color:red; margin-top: 1rem; margin-bottom: 1rem;">
                     <div class="card-body" style="border-color:red">
                         <text class="card-text" style="color:red">{{key}}</text><br>
                     </div>
                 </div>
             {% else %}
-                <div class="card">
+                <div class="card" style="margin-top: 1rem; margin-bottom: 1rem;">
                     <div class="card-body">
                         <text class="card-text">{{key}}</text><br>
                     </div>
