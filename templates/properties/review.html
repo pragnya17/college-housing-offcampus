@@ -47,8 +47,8 @@
                 document.getElementById("noise").value = "";
             }
         </script>
-
-        <button class="btn btn-outline-secondary" name="reset" input_type="reset" onclick="customReset();"> Reset </button>
+        <a href="{% url 'review' %}"><button type="button" class="btn btn-outline-secondary">Reset</button></a>
+<!--        <button class="btn btn-outline-secondary" name="reset" input_type="reset" onclick="customReset();"> Reset </button>-->
     </form>
 
     <a href="{% url 'properties' %}">Back to Listings</a>
