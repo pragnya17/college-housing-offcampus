@@ -26,9 +26,6 @@
               <option selected disabled value="">Choose...</option>
                 {% for each in properties %}
                     <option value={{each.id}}> {{ each.title }} </option>
-                    <div class="invalid-feedback">
-                        Please select a valid property.
-                    </div>
                {% endfor %}
             </select>
             <div class="invalid-feedback">
