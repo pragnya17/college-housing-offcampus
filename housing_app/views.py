@@ -56,6 +56,7 @@ class PropertiesDetailView(DetailView):
             avg_noise = -1
             text_reviews_and_bias = []
 
+        context['num_reviews'] = len_reviews
         context['avg_overall'] = round(avg_overall, 2)
         context['avg_amenities'] = round(avg_amenities, 2)
         context['avg_service'] = round(avg_service, 2)
