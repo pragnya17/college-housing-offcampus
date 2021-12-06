@@ -13,9 +13,13 @@
             <legend>Choose a property to review</legend>
             {% for each in properties %}
                 <input type="radio" name="property" value={{each.id}} required> {{ each.title }} <br>
+                <div class="invalid-feedback">
+                    Please select a valid state.
+                </div>
             {% endfor %}
             <br>
         </fieldset>
+
 
         <label for="overall">Overall Rating (0 is the worst, 5 is the best):</label><br>
         <input type="number" min="0" max="5" id="overall" name="overall" required><br><br>
