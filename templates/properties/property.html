@@ -70,7 +70,7 @@
     </div>
 
 
-    <h5>Ratings for this property:</h5>
+    <h5>Ratings for this property (Total: {{ num_reviews }})</h5>
     <TABLE>
         <TR>
             <TD valign="top"><b>Overall Property Rating:</b></TD>
@@ -117,6 +117,7 @@
                 No ratings available for Noise yet
             {% else %}
                 {{ avg_noise }} / 5 <br>
+                <i>(0 indicates the noisiest, 5 indicates the quietest)</i>
             {% endif %}</TD>
          </TR>
          <TR>
@@ -128,12 +129,22 @@
 
     <br>
 
-    <h5>Reviews about this property:</h5>
+    <h5>Reviews about this property (Total: {{ num_reviews }})</h5>
     <p>Reviews outlined in red are flagged as biased reviews!</p>
     {% if not text_reviews_and_bias %}
         <p style="font-size: 15px">This property has no reviews. Leave one using the button on the home page!</p>
     {%endif%}
     {%for key, value in text_reviews_and_bias.items%}
+        {% if value == True %}
+            <div class="card" style="border-color:red">
+                <div class="card-body" style="border-color:red">
+                    <text class="card-text" style="color:red">{{key}}</text><br>
+                </div>
+            </div>
+        {% else %}
+            <div class="card">
+                <div class="card-body">
+                    <text class="card-text">{{key}}</text><br>
             {% if value == True %}
                 <div class="card" style="border-color:red; margin-top: 1rem; margin-bottom: 1rem;">
                     <div class="card-body" style="border-color:red">
@@ -146,7 +157,8 @@
                         <text class="card-text">{{key}}</text><br>
                     </div>
                 </div>
-            {% endif %}
+            </div>
+        {% endif %}
     {% endfor %}
 
     <a href="{% url 'properties' %}">Back to Listings</a>

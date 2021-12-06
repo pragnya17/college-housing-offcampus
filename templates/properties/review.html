@@ -9,7 +9,7 @@
 
 {% block content %}
 
-<form method="post">
+<!--<form method="post">-->
     {% csrf_token %}
     <form action="{% url 'review' %}" method="post">
         <fieldset id="property">
@@ -33,16 +33,14 @@
         <input type="number" min="0" max="5" id="noise" name="noise" required><br><br>
 
         Review: <br>
-        <textarea placeholder="Additional comments" rows = "5" cols = "50" id="text_review" name="text_review" style="margin-bottom: 1rem;"></textarea><br>
+        <textarea placeholder="Any additional comments?" rows = "5" cols = "50" id="text_review"
+                  name="text_review" style="margin-bottom: 1rem;"></textarea><br>
 
         <button class="btn btn-success" button_type="submit" content="OK"> Submit </button>
-        <button class="btn btn-outline-secondary" button_type="reset" input_type="reset" content="Reset"> Reset </button>
+        <button class="btn btn-outline-secondary" input_type="button" content="Reset"
+                onClick="this.form.reset()"> Reset </button>
     </form>
 
-<!--    <div class="container-fluid">-->
-<!--        -->
-<!--    </div>-->
-
     <a href="{% url 'properties' %}">Back to Listings</a>
-</form>
+
 {% endblock %}
