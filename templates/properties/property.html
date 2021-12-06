@@ -130,6 +130,9 @@
 
     <h5>Reviews about this property:</h5>
     <p>Reviews outlined in red are flagged as biased reviews!</p>
+    {% if not text_reviews_and_bias %}
+        <p style="font-size: 15px">This property has no reviews. Leave one using the button on the home page!</p>
+    {%endif%}
     {%for key, value in text_reviews_and_bias.items%}
             {% if value == True %}
                 <div class="card" style="border-color:red; margin-top: 1rem; margin-bottom: 1rem;">
