@@ -135,16 +135,6 @@
         <p style="font-size: 15px">This property has no reviews. Leave one using the button on the home page!</p>
     {%endif%}
     {%for key, value in text_reviews_and_bias.items%}
-        {% if value == True %}
-            <div class="card" style="border-color:red">
-                <div class="card-body" style="border-color:red">
-                    <text class="card-text" style="color:red">{{key}}</text><br>
-                </div>
-            </div>
-        {% else %}
-            <div class="card">
-                <div class="card-body">
-                    <text class="card-text">{{key}}</text><br>
             {% if value == True %}
                 <div class="card" style="border-color:red; margin-top: 1rem; margin-bottom: 1rem;">
                     <div class="card-body" style="border-color:red">
@@ -157,8 +147,7 @@
                         <text class="card-text">{{key}}</text><br>
                     </div>
                 </div>
-            </div>
-        {% endif %}
+            {% endif %}
     {% endfor %}
 
     <a href="{% url 'properties' %}">Back to Listings</a>
