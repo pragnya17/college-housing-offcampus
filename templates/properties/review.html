@@ -1,52 +1,3 @@
-<!--{% extends "index.html" %}-->
-<!--{% include 'messages.html' %}-->
-<!--<script src="jquery/jquery.js"></script>-->
-<!--{% load bootstrap5 %}-->
-<!--{% bootstrap_javascript %}-->
-
-<!--{% bootstrap_css %}-->
-<!--{% bootstrap_messages %}-->
-
-<!--{% block content %}-->
-
-<!--<form method="post">-->
-<!--    <form action="{% url 'review' %}" method="post">-->
-<!--        {% csrf_token %}-->
-<!--        <fieldset id="property">-->
-<!--            <legend>Choose a property to review</legend>-->
-<!--            {% for each in properties %}-->
-<!--                <input type="radio" name="property" value={{each.id}} required> {{ each.title }} <br>-->
-<!--            {% endfor %}-->
-<!--            <br>-->
-<!--        </fieldset>-->
-
-<!--        <label for="overall">Overall Rating (0 is the worst, 5 is the best):</label><br>-->
-<!--        <input type="number" min="0" max="5" id="overall" name="overall" required><br><br>-->
-
-<!--        <label for="amenities">Amenities Rating (0 is the worst, 5 is the best):</label><br>-->
-<!--        <input type="number" min="0" max="5" id="amenities" name="amenities" required><br><br>-->
-
-<!--        <label for="services">Services (0 is the worst, 5 is the best):</label><br>-->
-<!--        <input type="number" min="0" max="5" id="services" name="services" required><br><br>-->
-
-<!--        <label for="noise">Noise Level (0 is the noisiest, 5 is the quietest):</label><br>-->
-<!--        <input type="number" min="0" max="5" id="noise" name="noise" required><br><br>-->
-
-<!--        Review: <br>-->
-<!--        <textarea placeholder="Any additional comments?" rows = "5" cols = "50" id="text_review"-->
-<!--                  name="text_review" style="margin-bottom: 1rem;" required></textarea><br>-->
-
-<!--        <button class="btn btn-success" button_type="submit" content="OK"> Submit </button>-->
-<!--        <button class="btn btn-outline-secondary" input_type="button" content="Reset"-->
-<!--                onClick="this.form.reset()"> Reset </button>-->
-<!--    </form>-->
-<!--</form>-->
-
-<!--    <a href="{% url 'properties' %}">Back to Listings</a>-->
-
-<!--{% endblock %}-->
-
-
 {% extends "index.html" %}
 <script src="jquery/jquery.js"></script>
 {% load bootstrap5 %}
@@ -55,7 +6,7 @@
 {% bootstrap_css %}
 {% bootstrap_messages %}
 
-<!--{% block content %}-->
+{% block content %}
 
 <!--<form method="post">-->
 <!--    -->
@@ -110,4 +61,4 @@
 
     <a href="{% url 'properties' %}">Back to Listings</a>
 <!--</form>-->
-<!--{% endblock %}-->
+{% endblock %}
