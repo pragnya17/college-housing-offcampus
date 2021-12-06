@@ -1,9 +1,8 @@
-from django.shortcuts import get_object_or_404, render, HttpResponse, redirect
+from django.shortcuts import get_object_or_404, render
 
 # Create your views here.
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from . import models
 from django.views.generic import ListView, DetailView
 from .models import *
 from .filters import PropertyFilter
@@ -13,6 +12,7 @@ from django.contrib import messages
 
 class PropertiesListView(ListView):
     model = Property
+    context_object_name = 'properties_list'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
