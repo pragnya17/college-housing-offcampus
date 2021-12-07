@@ -175,5 +175,4 @@ class ReviewModelTests(TestCase):
 
         #boundary
         r2 = Review(property_id=-1)
-        response = self.client.get(reverse('properties:property'))
         self.assertEqual(r2.property_id, -1)
