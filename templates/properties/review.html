@@ -9,18 +9,25 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-    <form action="{% url 'review' %}" method="post">
+    <script>
+        function validate() {
+            var select = document.getElementById('property');
+            return !select.value == 0;
+        }
+    </script>
+
+    <form action="{% url 'review' %}" method="post" onsubmit="return validate()">
         {% csrf_token %}
 
         <label for="property" class="form-label">Property</label>
             <select class="form-select" id="property" name="property" required>
-              <option selected disabled value=-1>Choose...</option>
+              <option selected disabled value="">Choose...</option>
                 {% for each in properties %}
                     <option value={{each.id}}> {{ each.title }} </option>
                 {% endfor %}
             </select>
             <div class="invalid-feedback">
-              Please select a valid state.
+              Please select a valid property.
             </div>
 
         <br>
