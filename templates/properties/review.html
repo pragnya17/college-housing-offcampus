@@ -11,17 +11,6 @@
 {% if user.is_authenticated %}
     <form action="{% url 'review' %}" method="post">
         {% csrf_token %}
-<!--        <fieldset id="property">-->
-<!--            <legend>Choose a property to review</legend>-->
-<!--            {% for each in properties %}-->
-<!--                <input type="radio" name="property" value={{each.id}} required> {{ each.title }} <br>-->
-<!--                <div class="invalid-feedback">-->
-<!--                    Please select a valid state.-->
-<!--                </div>-->
-<!--            {% endfor %}-->
-<!--            <br>-->
-<!--        </fieldset>-->
-
 
         <label for="property" class="form-label">Property</label>
             <select class="form-select" id="property" required>
@@ -60,5 +49,7 @@
 
     {% else %}
     <h4>You must sign in before posting a review!</h4>
+
+    {% endif %}
 
 {% endblock %}
