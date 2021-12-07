@@ -8,29 +8,25 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-    <form action="{% url 'review' %}" method="post">
-        {% csrf_token %}
-<!--        <fieldset id="property">-->
-<!--            <legend>Choose a property to review</legend>-->
-<!--            {% for each in properties %}-->
-<!--                <input type="radio" name="property" value={{each.id}} required> {{ each.title }} <br>-->
-<!--                <div class="invalid-feedback">-->
-<!--                    Please select a valid state.-->
-<!--                </div>-->
-<!--            {% endfor %}-->
-<!--            <br>-->
-<!--        </fieldset>-->
+    <script>
+        function validate() {
+            var select = document.getElementById('property');
+            return !select.value == 0;
+        }
+    </script>
 
+    <form action="{% url 'review' %}" method="post" onsubmit="return validate()">
+        {% csrf_token %}
 
         <label for="property" class="form-label">Property</label>
-            <select class="form-select" id="property" required>
+            <select class="form-select" id="property" name="property" required>
               <option selected disabled value="">Choose...</option>
                 {% for each in properties %}
                     <option value={{each.id}}> {{ each.title }} </option>
-               {% endfor %}
+                {% endfor %}
             </select>
             <div class="invalid-feedback">
-              Please select a valid state.
+              Please select a valid property.
             </div>
 
         <br>
@@ -44,7 +40,7 @@
         <label for="services">Services (0 is the worst, 5 is the best):</label><br>
         <input type="number" min="0" max="5" id="services" name="services" required><br><br>
 
-        <label for="noise">Noise Level (0 is the quietest, 5 is the noisiest):</label><br>
+        <label for="noise">Noise Level (0 is the noisiest, 5 is the quietest):</label><br>
         <input type="number" min="0" max="5" id="noise" name="noise" required><br><br>
 
         Review: <br>
@@ -59,6 +55,8 @@
 
     {% else %}
     <h4>You must sign in before posting a review!</h4>
+    {% endif %}
+
     {% endif %}
 
 {% endblock %}

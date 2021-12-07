@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth import get_user, get_user_model
-from .models import Property
+from .models import Property, Review
 
 class GoogleLoginTest(TestCase):
 
@@ -166,3 +166,13 @@ class PropertyFilterTests(TestCase):
     def test_sort_by_ascending_price(self):
         response = self.client.get(reverse('properties'), {'sort': 'distance'}, secure=True)
         self.assertQuerysetEqual(response.context['filter'].qs, ['<Property: Jefferson Commons>', '<Property: Montebello Pointe>', '<Property: The Flats>'])
+
+class ReviewModelTests(TestCase):
+    def test___str__(self):
+        # equivalence of property id's
+        r1 = Review(property_id=1)
+        self.assertEqual(r1.property_id, 1)
+
+        #boundary
+        r2 = Review(property_id=-1)
+        self.assertEqual(r2.property_id, -1)
