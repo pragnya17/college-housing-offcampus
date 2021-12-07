@@ -14,10 +14,10 @@
 
         <label for="property" class="form-label">Property</label>
             <select class="form-select" id="property" required>
-              <option selected disabled value="">Choose...</option>
+              <option selected disabled value=-1>Choose...</option>
                 {% for each in properties %}
                     <option value={{each.id}}> {{ each.title }} </option>
-               {% endfor %}
+                {% endfor %}
             </select>
             <div class="invalid-feedback">
               Please select a valid state.
