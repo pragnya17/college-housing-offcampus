@@ -23,14 +23,7 @@ class PropertiesListView(ListView):
 class PropertiesDetailView(DetailView):
     model = Property
 
-    def get_context_data(self, **kwargs):
-        context = super(PropertiesDetailView, self).get_context_data(**kwargs)
-
-        # Sourced from https://www.valentinog.com/blog/detail/
-        # get property object's title and find all the matching ratings for that property
-
-        property_id = kwargs.get("object").id
-        reviews = Review.objects.filter(property_id=property_id)
+    def get_averages(self, reviews):
         len_reviews = len(reviews)
         if len_reviews > 0:
             overall_sum = 0
@@ -44,17 +37,29 @@ class PropertiesDetailView(DetailView):
                 service_sum += review.services_rating
                 noise_sum += review.noise_level_rating
                 text_reviews_and_bias[review.text_review] = review.biased_review
-            avg_overall = overall_sum/len_reviews    
+            avg_overall = overall_sum / len_reviews
             avg_amenities = amenities_sum / len_reviews
             avg_service = service_sum / len_reviews
             avg_noise = noise_sum / len_reviews
         else:
-        # no ratings available yet
+            # no ratings available yet
             avg_overall = -1
             avg_amenities = -1
             avg_service = -1
             avg_noise = -1
             text_reviews_and_bias = []
+        return (len_reviews, avg_overall, avg_amenities, avg_service, avg_noise, text_reviews_and_bias)
+
+    def get_context_data(self, **kwargs):
+        context = super(PropertiesDetailView, self).get_context_data(**kwargs)
+
+        # Sourced from https://www.valentinog.com/blog/detail/
+        # get property object's title and find all the matching ratings for that property
+
+        property_id = kwargs.get("object").id
+        reviews = Review.objects.filter(property_id=property_id)
+
+        len_reviews, avg_overall, avg_amenities, avg_service, avg_noise, text_reviews_and_bias = self.get_averages(reviews)
 
         context['num_reviews'] = len_reviews
         context['avg_overall'] = round(avg_overall, 2)
