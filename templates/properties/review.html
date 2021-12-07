@@ -16,7 +16,7 @@
             <select class="form-select" id="property" required>
               <option selected disabled value=-1>Choose...</option>
                 {% for each in properties %}
-                    <option value={{each.id}}> {{ each.title }} </option>
+                    <option name="property" value={{each.id}}> {{ each.title }} </option>
                 {% endfor %}
             </select>
             <div class="invalid-feedback">
